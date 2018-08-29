@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>商品详情</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			});		
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body style="background-color: #fff;">
+		<header class="page-header fixed-header">
+			<a href="javascript:history.go(-1)"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" /></a>
+			<h3>订单详情</h3>
+		</header>
+		<div style="padding-top: 49px;">
+			<div class="boxfood">
+			<img src="image/food-1.png" class="imgfood"/>
+			<div class="food-2">
+				<div class="kouqiang">
+					<span>长路口腔 牙齿矫正</span>
+					<p class="price">￥888.00/颗</p>
+				</div>
+				<p style="padding-left: 10px;">周一至周日|免预约</p>
+				<div class="food-3">
+					<div><img src="image/duihao.png" />随时退</div>
+					<div><img src="image/duihao.png" />过期自动退</div>
+				</div>
+			</div>
+		</div>
+		<div class="boxfood">
+			<span>数量</span>
+			<div class="numbertxt">
+				<div class="jian">-</div>
+				<span id="numberfood">1</span>
+				<div class="jia">+</div>
+			</div>
+		</div>
+        <div class="boxfood">
+			<span>小计</span>
+			<span class="sum">￥888</span>
+		</div>
+		<div class="boxfood">
+			<span>实付金额</span>
+			<span  class="sum1">￥888</span>		
+		</div>
+		<div class="boxfood2">
+			<span>手机号</span>
+			<span class="phone">156****6257</span>		
+		</div>
+		<div class="tijiaofood">
+			提交订单
+		</div>
+		</div>
+		
+	</body>
+<script type="text/javascript">		
+	//加减
+    $('.jia').each(function (index,domEle) {
+        var  s=$(this).siblings('#numberfood').text();
+        var  a=parseInt(s);
+        $(this).on('click', function() {
+            a++;
+            $(this).siblings('#numberfood').text(a);
+            //单个总金额
+            var p=888;
+            var b=p*a;
+            $(this).parent().parent().siblings().children('.sum').html('￥'+b);
+            $(this).parent().parent().siblings().children('.sum1').html('￥'+b);      
+        });
+        $(this).siblings('.jian').on('click', function() {
+            a--;
+            if(a<1){
+                a=1;
+            }
+             $(this).siblings('#numberfood').text(a);
+            var p=888;
+            var b=p*a;
+             $(this).parent().parent().siblings().children('.sum').html('￥'+b);
+            $(this).parent().parent().siblings().children('.sum1').html('￥'+b);      
+        });
+    });
+//  提交订单
+$('.tijiaofood').on('click', function() {
+	var a=1;
+	var price=$('sum').text();
+	var phone=$('.phone').text();console.log(phone);
+	var json = {
+		"a": a	,
+								"price": price	,
+								"phone": phone	
+							};
+							data = JSON.stringify(json);
+						$.ajax({
+									type: "post",
+									async: false,
+									url: "__MODULE__/Log/zhuce",
+									dataType: "json",
+									data: data,
+									success: function(json) {
+										alert("订单提交成功");
+									},
+									error: function(e) {
+										alert("error");
+									}
+								});
+});
+</script>
+</html>

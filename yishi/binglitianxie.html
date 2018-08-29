@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/binglitianxie.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+		
+		
+	</head>
+ 
+	<body> 
+		<script src="../js/rem.js"></script>
+		<header class="top-header" style="position: fixed;z-index: 66;top: 0;padding: 0;">
+			<a class="icona mui-action-back" > 
+				<img src="../image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>患者病例			<span class="ok">完成</span> </h3>  
+
+		</header>
+		<div class="mui-content" id="app" style="position: relative;height: 100vh; padding-top: 36px;"> 
+		  	<ul class="mui-table-view" style="margin-top: 0;">
+		  	        <li class="mui-table-view-cell content-li">
+		  	            <div class="mui-navigate-right">
+		  	                <div>姓名</div>
+		  	                <div id="name" contenteditable="true">{{info.uname}}</div>
+		  	            </div>
+		  	        </li>
+		  	        <li class="mui-table-view-cell content-li" @click="sexClick">
+		  	            <div class="mui-navigate-right">
+		  	                <div >性别</div>
+		  	                <div id="sex"  >{{info.usex == 0 ? '男' : '女'}}</div>
+		  	            </div>
+		  	        </li> 
+		  	        <li class="mui-table-view-cell content-li" @click="shops_nameClick">
+		  	            <div class="mui-navigate-right">
+		  	                <div>症状</div>
+		  	                <div id="shops_name">{{info.disease}}</div>
+		  	            </div> 
+		  	        </li>
+		  	        <li class="mui-table-view-cell content-li" @click="date_timeClick">
+		  	            <div class="mui-navigate-right">
+		  	                <div>就诊时间</div>
+		  	                <div id="date_time">{{info.date_time}}</div>
+		  	            </div>
+		  	        </li>
+		  	        <li class="mui-table-view-cell content-li">
+		  	            <div class="mui-navigate-right">
+		  	                <div>联系电话</div>
+		  	                <div id="phone" contenteditable="true">{{info.uphone}}</div>
+		  	            </div>
+		  	        </li>
+		  	        <li class=" tex">
+			  	        <div >
+			  	        	病情描述：
+			  	        </div>
+			  	        <div>
+			  	        	<textarea name="" id="describe" placeholder="病情描述..." rows="" cols=""></textarea>
+			  	        </div>
+		  	        </li>
+		  	        <li class=" tex">
+			  	        <div >
+			  	        	解决方法：
+			  	        </div>
+			  	        <div>
+			  	        	<textarea id="solvent"  name="" placeholder="解决方法..." ></textarea>
+			  	        </div>
+		  	        </li>
+		  	    </ul>
+		</div>
+	</body>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/mui.min.js"></script> 
+	<script src="../js/mui.picker.min.js"></script>
+	
+	<script src="../js/common/castapp.js"></script>
+	<script src="../js/common/vue.js"></script>
+	<script src="../js/common/common.js"></script>
+	<script src="js/binglitianxie.js"></script>
+	<script type="text/javascript"> 
+		mui.init() 
+		var tid = $_GET['tid'];
+	</script>
+</html>

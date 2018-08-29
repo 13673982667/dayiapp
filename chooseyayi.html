@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.name{
+				overflow: hidden;
+				width: 76%;
+			}
+		</style>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body>
+		<header class="top-header">
+			<a class="icona mui-action-back" >
+				<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>牙医选择</h3>
+		</header>
+        <ul class="chooseyayi" id="app" >
+        	<li v-for="(item,key,index) of list"  class='yishic' @click="onLiClick(item.id)">
+        		<div><img class='srca' :src="item.pic">
+        			<p class='name'>{{ item.nickname }}</p>
+        		</div>
+        		<div><span class='hideid'>{{ item.id }}</span>
+        			<p class='more'>{{ item.jineng }}</p>
+        		</div> 
+        	</li>
+        	<li v-if="list.length == 0" style="justify-content: center;"> 
+				暂无牙医
+        	</li>
+        </ul>
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/vue.js"></script> 
+	<script src="js/common/common.js"></script>
+    <script type="text/javascript">
+ 		mui.init();
+ 		var Time;
+ 		var dId = $_GET['dId'];
+ 		var dpId = $_GET['dpId'];
+ 		(function(fn){
+ 			//获取医师列表
+   			fn.getList = function(){
+	    		var res = {
+					url:API.url1+'api/Doctor/getList',
+					dpId:dpId
+				};
+	            common.get(res,function(e){ 
+	            	if(e.code == 1){
+	            		vm.$data.list = e.data
+	            	}
+	            });
+	    	}
+   		
+   		}(window.fns ? window.fns : window.fns = {}))
+ 		
+ 		mui.plusReady(function(){
+
+    	})
+    	var vm = new Vue({  
+    		el:'#app', 
+    		data:{
+    			list:[], 
+    		},
+    		methods:{
+    			onLiClick:function(e){
+    				mui.openWindow({
+    					url:'yishijieshao.html?cn='+Time+'&yId='+e+'&dId='+dId,
+    					id:'yishijieshao.html'
+    				})
+    			}
+    		},   
+    		mounted:function(){
+    			fns.getList() 
+    			Time=$_GET['cn'];
+	        },
+    	}); 
+   		 
+    	$(function(){
+    		function getQueryString(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+			    var r = window.location.search.substr(1).match(reg); 
+			    if (r != null) return unescape(r[2]); return null; 
+			};
+    	})
+    	
+    	
+   </script> 
+</html>

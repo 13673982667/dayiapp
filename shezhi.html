@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>设置</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+	<body style="background-color: #f1f1f1;">
+		<header class="page-header " style="background: #44b8fe;">
+			<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" /></a>
+			<h3 style="color: #FFFFFF;">设置</h3>
+		</header>
+		<a href="zhanghu.html">
+			<div class="boxabout1">
+					<span>账户与安全</span>
+					<div>
+						<p>更换手机号/修改密码</p>
+						<img src="img/person-8.png" />
+					</div>
+				</div>
+		</a>
+		
+		<div class="boxabout1 clearCache">
+			<span>清空缓存</span>
+			<div>
+				<p></p>
+				<img src="img/person-8.png" />
+			</div>
+		</div>
+		<div class="boxabout1 ver">
+			<span>版本号</span>
+			<div>
+				<p class="str"></p>
+				<img src="img/person-8.png" />
+			</div>
+		</div>
+		
+		
+		<div id="tuichu">
+			<a style="color:#000;">退出登录</a>
+		</div>
+
+
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/vue.js"></script> 
+	<script src="js/common/common.js"></script> 
+	<script src="js/app/shezhi.js"></script> 
+	<script>
+		mui.init();
+		$("#tuichu").click(function(){
+			localStorage.clear();
+//	        window.location.href = 'login.html';
+			openLogin()
+		})
+//		mui.plusReady(function(){ 
+//			$('.clearCache').on('tap',function(){
+//				plus.nativeUI.showWaiting();  //显示等待框
+//				setTimeout(function(){
+//					localStorage.clear();
+//					mui.toast('清除成功！')
+//					plus.nativeUI.closeWaiting(); //关闭等待框
+//					openLogin()
+//				},500)
+//			})
+//		})
+		function openLogin(){
+			mui.openWindow({
+				url:'login.html',
+				id:"login.html"
+			})
+		}
+		
+	</script>
+</html>

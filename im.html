@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="js/rem.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/all.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/im/chat-im.css" />
+    <link rel="stylesheet" type="text/css" href="css/mui.imageviewer.css" />
+	
+	<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/loading.css" />
+
+
+    
+</head> 
+	<!--loading页开始-->
+	<div class="loading" style="top: 48px; z-index: 9999;">
+		<div class="loader" style="top:35%;">
+			<div class="loader-inner pacman" >
+				<div></div>
+				<div></div>
+				<div></div> 
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+<body style="background-color: #fff;">
+<header class="mui-bar mui-bar-nav" id="header" style="position: absolute; top: 0; margin-top: 0;">
+    <div class="texttop">
+    	<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;"/></a>
+        <span>长路口腔</span>
+    </div>
+</header>
+
+ <div class="mui-content" >
+ 	<div class="content"  id="app" v-if="loginOk">
+	    <!-- 聊天内容列表 -->
+	    <div class="im-chat-main "  id="scr"> 
+	        <ul id="msg_list" style="overflow-y: auto;"> 
+	            <!--<li>
+	                <div class="im-chat-user">
+	                    <img src="http://tp1.sinaimg.cn/1241679004/180/5743814375/0"/>
+	                    <cite>罗玉凤
+	                    	<i>2016-11-01 11:39:13</i>
+	                    </cite>            
+	                </div>
+	                <div class="im-chat-text">你好啊！</div>
+	            </li>
+	            <li class="im-chat-mine">
+	                <div class="im-chat-user">
+	                    <img src="http://tva1.sinaimg.cn/crop.0.0.180.180.180/86b15b6cjw1e8qgp5bmzyj2050050aa8.jpg"/>
+	                    <cite><i>2016-11-01 11:40:19</i>长泽梓Azusa</cite>
+	                </div>
+	                <div class="im-chat-text">不怎好啊</div>
+	            </li>-->
+	            	
+	           	<li v-for="(item,index) of msgArr" v-bind:class="{ 'im-chat-mine':item.isSend }" >
+	                <div class="im-chat-user">   
+<!--	                    <img :src="item.isSend ? UserInfo.pic : item.sess._impl.icon"/>-->
+	                    <img :src="getUserInfo(item.fromAccountNick)['pic']"/>
+	                    <cite v-if="item.isSend">
+	                    	<i>{{ common.crtTimeFtt(item.time,1) }}</i>
+	                    	{{getUserInfo(item.fromAccountNick)['nickname']}}
+	                    </cite>
+	                    <cite v-else>
+	                    	{{getUserInfo(item.fromAccountNick)['nickname']}}
+	                    	<i>{{ common.crtTimeFtt(item.time,1) }}</i>
+	                    </cite> 
+	                </div>
+	                <div class="im-chat-text" v-html="item.content"></div>
+	            </li>
+	        </ul> 
+	    </div>
+	    <!-- 内容end -->
+	     <!-- 底部 -->
+
+	    <footer style="z-index: 999;">
+	    	
+		    <div class="footer-left" >
+		        <!--<i class="mui-icon chat-icon chat-icon-voice"></i>-->
+		    </div> 
+		    <div class="footer-center"> 
+		        <div type="text"  contenteditable="true" id="Message" class="input-text"></div> 
+		        <!--<div class="mui-btn mui-btn-outlined voice-btn">按住 说话</div>-->
+		    </div> 
+		    <div class="footer-right">
+		    	
+    			<div id="emoj"></div>
+		        <i class="mui-icon chat-icon chat-icon-face" @click="showEmojiClick" style="margin-right: 0.2rem; padding-left: 10px;"></i>
+		        <!--<i class="mui-icon chat-icon chat-icon-add-more" style="width: 46px;"></i>-->
+		        <div class="mui-btn mui-btn-success" @click="sendMessage">发送</div>
+		    </div>
+		</footer> 
+		<div id="face-content" v-show="showEmoji" class="face-content">
+	        <div id="Gallery" class="mui-slider">
+	            <div class="mui-slider-group">
+	                <div class="mui-slider-item">
+	                    <ul class="clear face-list">
+	                        <li v-for="(item,index) of Emotions" @click="selEmojiClick(item[0])" :title="item[0]"><img :src="item[1]"></li>
+	                    </ul>
+	                </div>
+	            </div> 
+	        </div>
+	    </div>
+	</div>
+	<div v-else style="text-align: center; padding-top: 20px;">
+		正在加载...
+	</div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/common/mui.js"></script>
+<script type="text/javascript" src="js/common/common.js"></script>
+<script type="text/javascript" src="js/common/vue.js"></script>
+<script type="text/javascript" src="js/common/castapp.js"></script>
+
+<!--表情-->
+<script type="text/javascript" src="js/im/emoj.js"></script>
+<!-- imsdk --> 
+<script type="text/javascript" src="WebIm/sdk/webim.js"></script>
+<script type="text/javascript" src="WebIm/sdk/json2.js"></script>
+<!-- 监听 C2C 消息通道的处理 -->
+<script type="text/javascript" src="WebIm/js/msg/receive_new_msg.js"></script>
+
+<script type="text/javascript" src="js/im/listeners.js"></script>
+<!--<script type="text/javascript" src="WebIm/js/webim.js"></script>-->
+<!--解析一条消息-->
+<script type="text/javascript" src="WebIm/js/common/show_one_msg.js"></script>
+<script type="text/javascript" src="js/im/web.js"></script>
+<script type="text/javascript" src="js/app/im.js"></script>
+
+<script>
+
+	mui.init()
+	mui.plusReady(function(){
+		plus.webview.currentWebview().setStyle({ 
+			softinputMode: "adjustResize",
+			background:'#ffffff' 
+		});
+	})
+</script>
+
+</html>

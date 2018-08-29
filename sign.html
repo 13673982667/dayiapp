@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>用户注册</title>
+	<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/loading.css" />
+	<link rel="stylesheet" type="text/css" href="css/base.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" href="js/need/layer.css" />
+	<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+	
+	<script src="js/layer.js"></script>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+        $(window).load(function() {
+            $(".loading").addClass("loader-chanage");
+            $(".loading").fadeOut(300)
+        });
+	</script>
+
+</head>
+<!--loading页开始-->
+<div class="loading">
+	<div class="loader">
+		<div class="loader-inner pacman">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+</div>
+<!--loading页结束-->
+
+<body>
+<header class="top-header">
+	<a class="mui-action-back" style="top: 13px;"><img src="image/back.png" /></a>
+	<h3>用户注册</h3>
+</header>
+
+<div class="login">
+	<form>
+		<ul>
+			<li>
+				<input type="text" placeholder="请输入手机号" name="phone"  id="phone"/>
+			</li>
+			<li>
+				<input type="password" placeholder="请输入字母/数字混合密码" name="password"   id="password"/>
+			</li>
+			<li>
+				<input type="password" name="password1" placeholder="请再次输入您的密码" />
+			</li>
+			<li class="code1">
+				<input type="text" class="form-control" id="card_name2" name="code" placeholder="请输入验证码">
+				<input id="btnSendCode" type="button" value="获取验证码"></button>
+			</li>
+			<li>
+				<input type="text" name="type" readonly placeholder="请选择注册类型" value="" />
+			</li>
+		</ul>
+		<input type="submit" value="完成"  id="submit"/>
+	</form>
+</div>
+
+</body>
+<script src="js/common/mui.js"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/common/castapp.js"></script>
+<script src="js/common/common.js"></script> 
+<script type="text/javascript">
+	mui.init()
+	ca.init()
+	var uType;
+    var PHONES=false;
+    $(function() {
+    	//注册类型
+    	$("input[name='type']").on('tap',function(){
+    		var picker = new mui.PopPicker(); 
+    		picker.setData([
+    			{value:'0',text:'患者'},
+    			{value:'1',text:'医师'},
+    			{value:'2',text:'诊所'},
+    			]);
+    		 picker.show(function (selectItems) {
+			    $("input[name='type']").val(selectItems[0].text);//智子
+			    uType = selectItems[0].value;
+//			    $("input[name='type']").val(selectItems[0].value);//zz 
+			  })
+    	}) 
+        //失去焦点获取到手机号
+        $("input[name='phone']").blur(function() {
+            pho = $("input[name='phone']").val();
+
+            if(pho==null){
+                layer.open({
+                    content: '手机号码不能为空!',
+                    skin: 'msg', 
+                    time: 2 //2秒后自动关闭
+                });
+                PHONES=false;
+                return false;
+            }else{
+                if(!pho.match(/^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/)){
+                    layer.open({
+                        content: '手机号码格式不正确!',
+                        skin: 'msg',
+                        time: 2 //2秒后自动关闭
+                    });
+                    PHONES=false;
+                    return false;
+                }else{
+                    PHONES=true;
+                }
+            }
+        });
+        //发送验证码
+        $("#btnSendCode").bind().click(function(){
+        	plus.nativeUI.showWaiting();  //显示等待框
+ 			var btn;
+            if(PHONES==true){
+                pho = $("input[name='phone']").val();
+                $.ajax({
+                    url:API.url1+'api/Users/send',
+                    type:"GET",
+                    data:{phone:pho},
+                    dataType:'json',
+                    async:'false',
+                    success:function(date){
+                    	plus.nativeUI.closeWaiting(); //关闭等待框
+                    	console.log(JSON.stringify(date));
+                    	var num=60;
+                    	var timer=null;
+                        var da=date;
+                        if(da.code==2){
+                        	layer.open({
+			                    content: '该号码已注册,请直接登录!',
+			                    skin: 'msg',
+			                    time: 2 //2秒后自动关闭
+			                });
+                        }
+                        if(da.code == 1){
+                        	$("#btnSendCode").attr("disabled", true); 
+                        	timer=setInterval(function(){
+                        		num--;
+                        		if(num > 0){
+								  $("#btnSendCode").val(+num+"s后重新获取");
+								 }else{
+								  clearInterval(timer); //清除js定时器
+								  $("#btnSendCode").attr("disabled", false); 
+								  $("#btnSendCode").val("获取验证码");
+								  num = 60; //重置时间
+								 }
+                        	},1000);
+                        	if(num==0){
+                        		clearInterval(timer);
+                        		$("#btnSendCode").val("点击获取验证码");
+                        		$("#btnSendCode").attr("disabled", false); 
+                        	}
+                        }
+                        
+                    },
+                    error:function(e){
+                    	plus.nativeUI.closeWaiting(); //关闭等待框
+                    }
+                })
+                return false;
+            }else{
+            	plus.nativeUI.closeWaiting(); //关闭等待框
+                layer.open({
+                    content: '手机号码为空!',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+            }
+        })
+        
+        var code;
+        var pwd;
+        //验证密码
+        $("input[name='password']").blur(function() {
+            pwd = $("input[name='password']").val();
+            //对密码进行判断
+            if(pwd.match(/^[a-zA-Z]\w{6,8}$/) == null) {
+                layer.open({
+                    content: '密码格式不正确!',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+                return false;
+            }
+            password = true;
+        })
+        //验证确认密码
+        $("input[name='password1']").blur(function() {
+            var pwd=$("input[name='password']").val();
+            var pwd1=$("input[name='password1']").val();
+            //对两次密码进行判断
+            if(pwd == pwd1) {
+//					alert('重复密码正确');
+            } else {
+                layer.open({
+                    content: '重复密码不正确!',
+                    skin: 'msg',
+                    time: 2 //2秒后自动关闭
+                });
+                password1 = true;
+                return false;
+            }
+        })
+        
+        //点击完成
+        $("#submit").click(function(){
+        	//检测验证码
+        	var code;
+        	var len=$("#card_name2").val().length;
+        	code=true;
+            pho = $("input[name='phone']").val();
+            pwd=$("#password").val();
+            code= $("input[name='code']").val();
+            var pwd1=$("input[name='password1']").val();
+            if(pho==""){
+                layer.open({
+                    content: '请填写手机号码!',
+                    skin: 'msg',
+                    time: 2
+                });
+                return false;
+            }
+            if(pwd==""){
+                layer.open({
+                    content: '请填写密码!',
+                    skin: 'msg',
+                    time: 2
+                });
+                return false;
+            }
+            if(pwd1==""){
+                layer.open({
+                    content: '请填写重复密码!',
+                    skin: 'msg',
+                    time: 2
+                });
+                return false;
+            }
+            if(code==""){
+                layer.open({
+                    content: '验证码不能为空!',
+                    skin: 'msg',
+                    time: 2
+                });
+                return false;
+            }
+            if(!uType){
+                layer.open({
+                    content: '请选择要注册的类型!',
+                    skin: 'msg',
+                    time: 2
+                });
+                return false;
+            }
+            if(pho!=='' && pwd!=='' && !code==''){
+            	
+            	plus.nativeUI.showWaiting();  //显示等待框
+                $.ajax({
+//                  url:'http://www.63218860.com/APP/home/register.php',
+					url:API.url1+'api/Users/register',
+                    type:"POST",
+                    data:{
+                    	phone:pho,
+                    	password:pwd,
+                    	code:code,
+                    	uType:uType
+                    },
+                    async:'false',
+                    dataType:'json',
+                    success:function(date){
+                    	plus.nativeUI.closeWaiting(); //关闭等待框
+                        if(date.code==1){
+                            layer.open({
+                                content: '注册成功!',
+                                skin: 'msg',
+                                time: 1
+                            });
+
+                        	//通知页面刷新
+							var arr = [plus.runtime.appid,'login.html','index.html','assort.html','shopcar.html','self.html'];
+							ca.sendNotice(arr,'Refresh',{});
+                        	localStorage.setItem('uId',date.data);
+                        
+                            setTimeout(function () {
+//                              window.location.href="login.html";
+								
+								mui.back();
+                            },1000);
+                        }else if(date.code==2){ 
+                        	$("#submit").attr("disabled",true);
+                            layer.open({
+                                content: '该用户已经注册,请直接登录!', 
+                                skin: 'msg',
+                                time: 2 
+                            }); 
+                        }else{  
+                        	$("#submit").attr("disabled",true); 
+                        	layer.open({
+                                content: date.message, 
+                                skin: 'msg',
+                                time: 1
+                            });
+                        }
+                    },
+                    error:function(e){
+                    	plus.nativeUI.closeWaiting(); //关闭等待框
+                    }
+                })
+                return false;
+            }
+        })
+    })
+</script>
+</html>

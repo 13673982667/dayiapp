@@ -1,0 +1,712 @@
+{
+  "yishijieshao.html": {
+    "href": "yishijieshao.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/1.png",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "chooseyayi.html": {
+    "href": "chooseyayi.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png",
+      "image/1.png"
+    ],
+    "refer": [
+      "yishijieshao.html"
+    ],
+    "priority": 0
+  },
+  "namechange.html": {
+    "href": "namechange.html",
+    "resources": [
+      "ChangLuAPP/admin/php/edit.php",
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "datum.html": {
+    "href": "datum.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png",
+      "img/person-8.png",
+      "img/touxiang.png"
+    ],
+    "refer": [
+      "namechange.html"
+    ],
+    "priority": 0
+  },
+  "jiuzhendetail.html": {
+    "href": "jiuzhendetail.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/1.png",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "jiuzhen.html": {
+    "href": "jiuzhen.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png",
+      "img/person-8.png"
+    ],
+    "refer": [
+      "jiuzhendetail.html"
+    ],
+    "priority": 0
+  },
+  "dingdandetail.html": {
+    "href": "dingdandetail.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/1.png",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "dingdan.html": {
+    "href": "dingdan.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png",
+      "img/person-8.png"
+    ],
+    "refer": [
+      "dingdandetail.html"
+    ],
+    "priority": 0
+  },
+  "lianxi.html": {
+    "href": "lianxi.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "huanshouji.html": {
+    "href": "huanshouji.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer04.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "mima.html": {
+    "href": "mima.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer04.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "zhanghu.html": {
+    "href": "zhanghu.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "img/person-8.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer04.png"
+    ],
+    "refer": [
+      "huanshouji.html",
+      "mima.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "shezhi.html": {
+    "href": "shezhi.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "img/person-8.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer04.png"
+    ],
+    "refer": [
+      "zhanghu.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "self.html": {
+    "href": "self.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "img/touxiang.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer04.png",
+      "img/person-1.png",
+      "img/person-3.png",
+      "img/person-4.png",
+      "img/person-6.png",
+      "img/person-7.png",
+      "img/person-8.png"
+    ],
+    "refer": [
+      "login.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html",
+      "datum.html",
+      "jiuzhen.html",
+      "dingdan.html",
+      "lianxi.html",
+      "shezhi.html"
+    ],
+    "priority": 0
+  },
+  "shopcar.html": {
+    "href": "shopcar.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/jq-ui.min.css",
+      "js/jquery.min.js",
+      "js/jq-ui.min.js",
+      "image/banner1.jpg",
+      "image/banner2.jpg",
+      "img/person-8.png",
+      "images/footer001.png",
+      "images/footer002.png",
+      "images/footer03.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "chooseyayi.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "detail.html": {
+    "href": "detail.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/detail-1.png",
+      "image/detail-2.png",
+      "image/back.png",
+      "images/footer001.png",
+      "images/footer02.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "assort.html": {
+    "href": "assort.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/banner1.jpg",
+      "image/banner2.jpg",
+      "image/1.png",
+      "image/2.png",
+      "image/3.png",
+      "images/footer001.png",
+      "images/footer02.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "detail.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "foodzhifu.html": {
+    "href": "foodzhifu.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back.png",
+      "image/food-1.png",
+      "image/duihao.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "fooddetail.html": {
+    "href": "fooddetail.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/food-1.png",
+      "image/food-2.png",
+      "image/food-3.png",
+      "image/food-4.png",
+      "image/back.png",
+      "image/duihao.png",
+      "images/footer001.png",
+      "images/footer02.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "foodzhifu.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike-1.html": {
+    "href": "baike-1.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/baike1.png",
+      "image/back-1.png",
+      "image/gengduo.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike-2.html": {
+    "href": "baike-2.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/baike1.png",
+      "image/back-1.png",
+      "image/gengduo.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike-3.html": {
+    "href": "baike-3.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "image/gengduo.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike-4.html": {
+    "href": "baike-4.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/back-1.png",
+      "image/gengduo.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike-5.html": {
+    "href": "baike-5.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/baike2.png",
+      "image/back-1.png",
+      "image/gengduo.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "baike.html": {
+    "href": "baike.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/banner1.jpg",
+      "image/banner2.jpg",
+      "image/back.png",
+      "image/baike-1.png",
+      "image/baike-2.png",
+      "image/baike-3.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png",
+      "image/kouqbk.png"
+    ],
+    "refer": [
+      "baike-1.html",
+      "baike-2.html",
+      "baike-3.html",
+      "baike-4.html",
+      "baike-5.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "index-2.html": {
+    "href": "index-2.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/meibai-1.png",
+      "image/meibai-2.png",
+      "image/back.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "index-1.html": {
+    "href": "index-1.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/jquery.min.js",
+      "js/mui.min.js",
+      "image/banner1.jpg",
+      "image/banner2.jpg",
+      "image/back.png",
+      "image/1.png",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png"
+    ],
+    "refer": [
+      "index-2.html",
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html"
+    ],
+    "priority": 0
+  },
+  "index.html": {
+    "href": "index.html",
+    "resources": [
+      "js/jquery-1.8.3.min.js",
+      "js/fastclick.js",
+      "js/mui.min.js",
+      "js/hmt.js",
+      "js/swiper/swiper.min.css",
+      "js/swiper/swiper.jquery.min.js",
+      "js/global.js",
+      "js/rem.js",
+      "css/mui.min.css",
+      "css/all.css",
+      "css/base.css",
+      "css/style.css",
+      "images/footer01.png",
+      "images/footer002.png",
+      "images/footer003.png",
+      "images/footer004.png",
+      "image/jiaozheng01.jpg",
+      "image/jiao02.jpg",
+      "image/jiao03.jpg",
+      "image/jiao04.jpg",
+      "image/banner1.jpg",
+      "image/banner2.jpg",
+      "image/homenav1.png",
+      "image/homenav2.png",
+      "image/homenav3.png",
+      "image/num1.png",
+      "image/num2.png",
+      "image/num3.png",
+      "image/num4.png",
+      "image/num5.png",
+      "image/num6.png"
+    ],
+    "refer": [
+      "index.html",
+      "assort.html",
+      "shopcar.html",
+      "self.html",
+      "fooddetail.html",
+      "baike.html",
+      "index-1.html"
+    ],
+    "priority": 0
+  },
+  "sign.html": {
+    "href": "sign.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/need/layer.css",
+      "js/layer.js",
+      "js/jquery.min.js",
+      "image/back.png"
+    ],
+    "refer": [
+      "index.html"
+    ],
+    "priority": 0
+  },
+  "reset.html": {
+    "href": "reset.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/jquery.min.js",
+      "image/back.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "login.html": {
+    "href": "login.html",
+    "resources": [
+      "css/loaders.min.css",
+      "css/loading.css",
+      "css/base.css",
+      "css/style.css",
+      "js/need/layer.css",
+      "js/jquery.min.js",
+      "js/layer.js",
+      "image/logo.png"
+    ],
+    "refer": [
+      "index.html",
+      "sign.html",
+      "reset.html"
+    ],
+    "priority": 0
+  }
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet">
+		<link href="css/all.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="iconfont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/nav-tab.css"/>
+	</head>
+	<style type="text/css">
+		.mui-bar-tab .mui-tab-item.mui-active{
+			color:#1296db;	
+		}
+		.mui-bar-tab{
+			background: #fff;
+		}
+	</style> 
+	<body>
+		<div id="app"> 
+			<nav class="mui-bar mui-bar-tab public-nav-height">
+				<!--<a class="mui-tab-item mui-active" id="index.html">
+					<span class="iconfont icon-faxian"></span>
+					<span class="mui-tab-label">首页</span>
+				</a>
+	
+				<a class="mui-tab-item" id="assort.html">
+					<span class="iconfont icon-quanzi"></span>
+					<span class="mui-tab-label">资讯</span>
+				</a>
+				<a class="mui-tab-item" id="shopcar.html">
+					<span class="iconfont icon-xiaoxi"></span>
+					<span class="mui-tab-label">预约</span>
+				</a>
+				<a class="mui-tab-item" id="self.html">
+					<span class="iconfont icon-profile"></span>
+					<span class="mui-tab-label">个人中心</span>
+					
+				</a>-->
+				<a class="mui-tab-item " :class="{'mui-active' : k == 0}"  v-for="(v,k) of navList" :id="v.url">
+					<span class="iconfont " :class="v.icon"></span>
+					<span class="mui-tab-label">{{v.name}}</span> 
+				</a>
+			</nav>
+		</div>
+	</body>
+		<!--引入MUI-JS文件-->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/mui.min.js"></script> 
+	<script src="js/common/castapp.js"></script>
+	<script src="js/common/vue.js"></script>
+	<script src="js/common/common.js"></script>
+	<script src="js/app/nav-tab.js"></script>
+    <script type="text/javascript">
+    	ca.init()
+    	mui.init();
+    	var vm;
+//		var subpages = ['index.html','assort.html','shopcar.html','self.html'];
+		var subpages = [];
+		var subpage_style = {
+			top: '0px',
+			bottom: '55px',
+			scrollIndicator:'none',// 当你的界面的内容足够多的时候，会出现滚动条，这个是隐藏滚动条
+		};		 
+		var aniShow = {};
+			 //创建子页面，首个选项卡页面显示，其它均隐藏；
+		mui.plusReady(function() {
+			//检测更新
+			ver();
+			if(!uId){
+				mui.openWindow({
+					url:'login.html',
+					id:'login.html'
+				})
+			}else{
+				createVue()
+			}
+		});
+		function jiazai (){
+			var self = plus.webview.currentWebview();
+			for (var i = 0; i < 4; i++) { 
+				var is_page = plus.webview.getWebviewById(subpages[i]);  //获取这个页面
+				if (i == 0) {  
+					mui.trigger($('.mui-tab-item').eq(0)[0],'touchstart');
+					mui.trigger($('.mui-tab-item').eq(0)[0],'tap')
+				}
+				//如果有就跳出 
+				if(is_page){ 
+					continue;
+				} 
+				var temp = {};
+				var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+//				console.log(i);
+				if (i > 0) {  
+					plus.webview.hide(subpages[i]);
+					sub.hide(); 
+				}else{ 
+					plus.webview.show(subpages[i]);
+					temp[subpages[i]] = "true";
+					mui.extend(aniShow,temp); 
+				} 
+				
+				self.append(sub); 
+			}   
+			activeTab = subpages[0];
+			//预加载聊天页面
+			if(uType != 0){
+				mui.preload({
+					url:'yishi/im.html',   
+					id:'yishi/im.html',
+					styles:{
+						popGesture:'hide'
+					}
+					
+				})
+			}else{
+				mui.preload({
+					url:'im.html',   
+					id:'im.html',
+					styles:{
+						popGesture:'hide'
+					}
+				})
+			}
+		}
+		 //当前激活选项
+		var activeTab;
+		 //选项卡点击事件
+		$('html').on('tap', 'a', function(e) {
+//			  console.log(this.id);
+			var targetTab = this.id;  
+			if (targetTab == activeTab) {   
+				return;
+			}
+
+			//更换标题
+            //title.innerHTML = this.querySelector('.mui-tab-label').innerHTML;
+			//显示目标选项卡
+			//若为iOS平台或非首次显示，则直接显示
+
+			$(this).addClass("on").siblings().removeClass("on");
+			if(mui.os.ios||aniShow[targetTab]){
+				plus.webview.show(targetTab,"fade-in",300);
+			}else{
+				//否则，使用fade-in动画，且保存变量
+				var temp = {};
+				temp[targetTab] = "true";
+				mui.extend(aniShow,temp);
+				plus.webview.show(targetTab,"fade-in",300);
+			} 
+			//隐藏当前;
+//			alert(activeTab);
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡 
+			activeTab = targetTab;
+//				plus.navigator.setFullscreen(true);  //显示或者隐藏状态栏
+		});
+		window.addEventListener('yuyue',function(e){
+//			console.log(JSON.stringify(e.detail));
+			//模仿点击选项卡第二个预约
+			mui.trigger($('.mui-tab-item').eq(2)[0],'touchstart');
+			mui.trigger($('.mui-tab-item').eq(2)[0],'tap')
+		})
+		//监听注册登陆成功事件
+		window.addEventListener('Refresh',function(){
+			uId = localStorage.getItem('uId')
+			uType = localStorage.getItem('uType')
+			if(uId){
+				createVue() 
+				//模拟点击 选中第一个
+//				mui.trigger($('.mui-tab-item').eq(0)[0],'touchstart');
+//				mui.trigger($('.mui-tab-item').eq(0)[0],'tap')
+			}
+		})
+    </script>
+</html>

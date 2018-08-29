@@ -1,0 +1,47 @@
+.content-ul{
+	width: 100%;
+	background: #fff;
+}
+.content-ul li{
+	background: ;
+	margin-bottom: 25px;
+	height: 30vh;
+	position: relative;
+	z-index: 1;
+}
+.content-ul li:last-child{
+	margin-bottom: 0px; 
+	
+}
+.content-ul li video{
+	width:100%;  
+	height:100%; 
+}
+
+.vd{
+	background: rgba(200,200,200,.7);	
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	top: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.vd img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100%;
+	z-index: -1;
+}
+.vd-play{
+	/*width: 17vw;
+	height: 17vw;*/
+	/*border-radius: 50%;*/
+	/*border: 1px solid #fff;*/
+	color: #fff;
+	font-size: 1.2rem;
+}

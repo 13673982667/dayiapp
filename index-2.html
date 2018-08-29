@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>牙齿美白详情</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow" >
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body style="background-color: #fff;">
+		<header class="page-header fixed-header">
+			<a  href="javascript:history.go(-1)"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;"/></a>
+			
+			<h3>牙齿美白</h3>
+		</header>
+    <div class="detailhd">
+    	<p class="title"></p>
+    	<p class="time">2017-08-02</p><br />
+    	<p class="cont"></p>
+    	<img class="imgg" src="image/meibai-1.png"/>
+    	<p class="content"></p>
+
+    </div>		
+	<footer class="page-footer fixed-footer" id="footer">
+			<ul>
+				<li class="active">
+					<a href="index.html">
+						<img src="images/footer01.png" />
+						<p>首页</p>
+					</a>
+				</li>
+				<li>
+					<a href="assort.html">
+						<img src="images/footer002.png" />
+						<p>资讯</p>
+					</a>
+				</li>
+				<li>
+					<a href="shopcar.html">
+						<img src="images/footer003.png" />
+						<p>预约</p>
+					</a>
+				</li>
+				<li>
+					<a href="self.html">
+						<img src="images/footer004.png" />
+						<p>个人中心</p>
+					</a>
+				</li>
+			</ul>
+		</footer>
+
+	</body>
+	<script type="text/javascript">
+		$(function(){
+			//获取id
+			function getQueryString(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+			    var r = window.location.search.substr(1).match(reg); 
+			    if (r != null) return unescape(r[2]); return null; 
+			};
+			
+			var id=getQueryString("cn");
+			//输出文章
+			$.ajax({
+				type:"post",
+				url:'http://www.63218860.com/APP/admin/admin/article_mouth_cont.php',
+				async:true,
+				data:{id:id},
+				dataType:"json",
+				success:function(date){
+					console.log(date)
+					$(".title").html(date.date.title);
+					$(".time").html(date.date.addtime);
+					$(".cont").html(date.date.cont);
+					$(".imgg").attr("src",date.date.pic);
+					$(".content").html(date.date.content);
+				}
+			});
+		})
+	</script>
+</html>

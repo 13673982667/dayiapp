@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>洗牙</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <script src="js/rem.js"></script>昂
+    <!--<link href="iconfont/iconfont.css" rel="stylesheet">-->
+    <link href="css/mui.min.css" rel="stylesheet">
+    <link href="css/all.css" rel="stylesheet">
+    <link href="css/toothwash.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<!--loading页开始-->
+<div class="loading">
+    <div class="loader">
+        <div class="loader-inner pacman">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<!--loading页结束-->
+<body style="background-color: #fff;">
+<header class="mui-bar mui-bar-nav" id="header">
+    <div class="texttop">
+    	<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;"/></a>
+			
+        <span>长路口腔</span>
+    </div>
+</header>
+<div id="maina"style="padding:0;margin-top: 60px;">
+    <div class="maintop">
+
+       <div class="left">
+           <h3>症状</h3>
+            <ul>
+                <li>
+                    <h5>1.口腔问题</h5>
+                    <p>牙龈出血,牙疼,智齿,拔牙</p>
+                </li>
+                <li>
+                    <h5>2.口腔疾病</h5>
+                    <p>牙周炎,牙龈炎,牙髓炎</p>
+                </li>
+                <li>
+                    <h5>3.口腔保健</h5>
+                    <p>洗牙,牙齿敏感,其他口腔问题</p>
+                </li>
+            </ul>
+       </div>
+       <div class="right">
+           <img src="./image/xiya1.png" alt="">
+       </div>
+   </div>
+    <div class="maintop">
+
+        <div class="left">
+            <h3>服务内容</h3>
+            <ul>
+                <p>1.口腔全面检查</p>
+                <p>2.口腔全面拍摄</p>
+                <p>3.治疗方案</p>
+                <p>4.口腔健康日常保健事宜</p>
+                <p>5.口腔终身档案</p>
+            </ul>
+        </div>
+        <div class="righta">
+            <img src="./image/xiya2.png" alt="">
+        </div>
+    </div>
+    <div class="maintop">
+        <h3>注意事项</h3>
+        <div>
+            <p>在洗牙后两周，不宜食冷、热、酸、甜等食品。 </p>
+            <p>洗牙后的牙齿对冷热会有点敏感而感到酸痛，这暂时的症状及原来刷牙容易流血 的情形通常在一周左右会消失。若酸痛症状一直存在可考虑市面上的抗敏感牙膏,食用一个月左右多会改善。</p>
+        </div>
+
+    </div>
+</div>
+
+<footer class="page-footer fixed-footer" id="footer">
+    <button type="button" class="btnnext">立即预约</button>
+</footer>
+
+</body>
+
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script src="js/fastclick.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/common/castapp.js"></script>
+<script type="text/javascript" src="js/hmt.js"></script>
+<script type="text/javascript" src="js/common/common.js"></script>
+<!--插件-->
+<script src="js/global.js"></script>
+<script>
+$(function(){
+	mui.init();
+	ca.init();
+	$(".btnnext").click(function(){
+		//ca数组发送通知
+		var arr = [plus.runtime.appid];
+		ca.sendNotice(arr,'yuyue',{
+			dId:1,
+			pId:1
+		});
+		mui.back();
+//		window.location.href="shopcar.html?cn=1";
+//		mui.openWindow({ 
+//			url:'shopcar.html?cn=1',
+//			id:'shopcar.html'
+//		})
+		
+	})
+})
+
+</script>
+
+</html>

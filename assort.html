@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>资讯</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<link rel="stylesheet" href="css/pullToRefresh.css" rel="external nofollow">
+		<script src="js/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			}) 
+		</script>
+		
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body style="background-color: #fff;">
+		<header class="page-header fixed-header" style="z-index: 999; ">
+			<h3>长路口腔</h3>
+		</header>
+
+		
+		<!--下拉刷新容器-->
+		<div  class="mui-content" id="app" style="overflow: hidden;">
+		  <div id="refreshContainer" class=" mui-scroll-wrapper">
+		  <div class="mui-scroll"> 
+		  	<div style="width: 100%;padding-top: 48px;">
+				<img class="swiper-lazy" data-src="image/banner1.jpg" alt="" src="image/banner2.jpg" style="width: 100%;">
+			</div>
+		
+		    <!--数据列表-->
+		    <ul class="hdhd">
+				<li v-for="(v,k) of List" :id="v.id" :key="v.id">
+					<div class="" >
+						<img :src="v.pic" v-show="v.pic != ''" />  
+					</div> 
+					<div class="" style="width: calc(100% - 140px);">
+						<p>{{v.title}}</p> 
+						<p>{{v.create_time}}</p>
+					</div> 
+				</li> 
+			</ul>
+		  </div>
+		  </div> 
+		</div>
+	
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.pullToRefresh.js"></script>
+	<script src="js/mui.pullToRefresh.material.js"></script>
+	<script src="js/common/vue.js"></script>
+	<script src="js/common/common.js"></script>
+	<script src="js/app/assort.js"></script>
+	<script>
+		mui.init();
+		var vm;
+		//监听刷新
+	    window.addEventListener('Refresh',function(){
+	    	uId = localStorage.getItem('uId')
+	    	uType = localStorage.getItem('uType')
+	    })
+	    $('body').on('tap','li',function(e){
+			var id = $(this).attr('id');
+			mui.openWindow({
+				url:"detail.html?cn="+id,
+				id:'detail.html' 
+			})
+		})
+	</script>
+
+</html>

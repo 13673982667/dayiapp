@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>预约</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/mui.picker.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/jq-ui.min.css"/>
+		<link rel="stylesheet" href="css/jquery-ui.css">
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jq-ui.min.js" type="text/javascript" charset="utf-8"></script>	
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body>
+		<header class="page-header fixed-header">
+			<h3>长路口腔</h3>
+		</header>
+		<div style="width: 100%;margin-top: 48px;">
+			<img class="swiper-lazy" data-src="image/banner1.jpg" alt="" src="image/banner2.jpg" style="width: 100%;">
+		</div>
+		<div class="yuyuecontent" id="app">
+			<ul>
+				<li>
+					<span>症状：</span>
+					<select class="info-select selec">
+						<!--<option selected="selected" value="0">牙疼</option>
+						<option value="1">洗牙</option>-->
+						<option v-for="(item,index) of dlist" :value="item.id">{{item.disease}}</option>
+					</select>
+					<img src="img/person-8.png" />
+				</li>
+				<li>
+					<span>地点：</span>
+					<!--<span>郑州</span>-->
+					<select class="info-select dianpu">
+						<!--<option selected="selected" value="1">兴业瑞美口腔</option>
+						<option value="2">兴业口腔未来路店</option>
+						<option value="3">兴业口腔商城路店</option>-->
+						<option v-for="(item,index) of DpList" :value="item.id">{{item.dp_name}}</option>
+					</select>
+					<img src="img/person-8.png" />
+				</li>
+				<li>
+					<span>时间：</span>
+					<!--<input id="datepicker" style="background: initial; " class="inputphone" type="text" placeholder="预约时间" />-->
+					<p id="datepicker" @click="dateClick" style="font-size: 16px;margin: 0; line-height: 26px;">预约时间</p>
+					<img src="img/person-8.png" />  
+				</li>
+			</ul>
+		</div>
+		<a class="submityuyue"><div class="yuyuesubmit">预约</div></a>
+	
+	</body>
+	<script src="js/common/mui.js"></script> 
+	<script src="js/mui.picker.min.js"></script>
+	<script src="js/common/vue.js"></script>
+	<script src="js/common/common.js"></script>
+	
+	<script type="text/javascript">
+		mui.init();
+		var vm;
+		mui.plusReady(function(){
+			vm = new Vue({
+				el:'#app',
+				data:{
+					dlist:[],//症状列表
+					DpList:[],//店铺列表
+				}, 
+				methods:{
+					dateClick:function(){
+						var myDate = new Date();//获取系统当前时间
+						var dtpicker = new mui.DtPicker({
+							type:'date',
+							beginDate: new Date(),//设置开始日期 
+    						endDate: new Date(myDate.getFullYear(),myDate.getMonth(),myDate.getDate() + 5),//设置结束日期 
+//  						"customData":{"h":[
+//  						{"text":"8点","value":"8"},
+//  						{"text":"9点","value":"9"},
+//  						{"text":"10点","value":"10"},
+//  						{"text":"11点","value":"11"},
+//  						{"text":"12点","value":"12"},
+//  						{"text":"14点","value":"14"},
+//  						{"text":"15点","value":"15"},
+//  						{"text":"16点","value":"16"},
+//  						]}
+						})
+						dtpicker.show(function(selected) { 
+//						    console.log(JSON.stringify(selected)); 
+						    var v = selected.y.value + '-' + selected.m.value + '-' + selected.d.value;
+						    if(v){
+						    	$("#datepicker").html(v);
+						    }
+						})
+					}
+				},
+				mounted:function(){
+					readyOk();
+					fns.getShops();
+				}
+			}) 
+		}) 
+		
+		!function(fn){
+			//获取列表 
+			fn.getShops = function(){
+				var data = {
+					url:API.url1+'api/index/getDoctor'
+				}
+				common.get(data,function(e){
+					if(e.code == 1){ 
+						//症状列表
+						vm.$data.dlist = e.data.Shops 
+						//店铺列表
+						vm.$data.DpList = e.data.DpList 
+//						console.log(JSON.stringify(vm.$data.DpList));
+					}
+				})
+			}
+			
+			
+		}(window.fns ? window.fns : window.fns = {})
+		
+		//监听刷新
+	    window.addEventListener('Refresh',function(){
+	    	uId = localStorage.getItem('uId')
+
+	    })
+		$(window).load(function() {
+				$(".loading").addClass("loader-chanage");
+				$(".loading").fadeOut(300);
+			})
+		$(document).ready(function() {
+//				$("#datepicker").datepicker({ minDate: 0,showOtherMonths: true,selectOtherMonths: true, maxDate: "+0M +4D" , monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+//                  dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+//                  dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+//                  dayNamesMin: ['日','一','二','三','四','五','六'],  showMonthAfterYear:true, dateFormat: 'yy-mm-dd',
+//                   onSelect: function(selectedDate) {//选择日期后执行的操作   
+//		            	},
+//                  
+//                  })
+                   
+		          
+			});
+		var readyOk = function(){
+			function getQueryString(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+			    var r = window.location.search.substr(1).match(reg); 
+			    if (r != null) return unescape(r[2]); return null; 
+			};
+			var select=getQueryString("cn");
+			
+			if(select==null){
+				select=0;
+			}
+			$(".selec").val(select);
+			$(".submityuyue").on('tap',function(){
+				var select1=$(".selec").val();//症状id
+				var dpId = $('.dianpu').val(); //店铺id 
+//				localStorage.setItem("LI",select1);
+				var time=$("#datepicker").html();
+				if(time=="预约时间"){
+					alert("请选择日期");
+				}else{
+					mui.openWindow({
+						url:"chooseyayi.html?cn="+time+'&dId='+select1+'&dpId='+dpId,
+						id:'chooseyayi.html'
+					})
+					
+//					window.location.href="chooseyayi.html?cn="+time;
+				}
+			})
+			
+		}
+	</script>
+</html>

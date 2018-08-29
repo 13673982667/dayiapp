@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<div id="app">
+	<div class="p-top  clearfloat">
+		<!-- <a href="personal.html"> -->
+		<a href="datum.html">
+			<div class="tu"><!--img/loading.gif-->
+				<img class="userimg" :src="userInfo.pic || 'img/loading.gif'"/>
+			</div> 
+			<p class="name"> 
+				<span class="username" v-if="userInfo">欢迎您,{{userInfo.nickname}}</span>
+				<span class="username" v-else>请登陆</span>
+				
+			</p> 
+		</a> 
+	</div> 
+	<div class="contaniner fixed-contb">
+		<section class="self">						
+			<ul class="self-icon">
+				<li class="more"> 
+					<a href="datum.html">
+						<img src="img/gerenziliao.png"/>
+						<p>个人资料</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li> 
+				<li v-if="userInfo.type == 0">
+					<a class="appointment" href="appointment.html">
+						<img src="img/wodeyuyue.png"/>
+						<p>我的预约</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+				<li v-if="userInfo.type == 2">
+					<a href="yishi/im.html">
+						<img src="img/person-6.png"/>
+						<p>资讯患者</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+				<li v-if="userInfo.type == 2">
+					<a href="yishi/yuyuejilu.html">
+						<img src="img/yuyue.png"/>
+						<p>预约记录</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+				<li v-if="userInfo.type == 2">
+					<a href="yishi/kanbingjilu.html">
+						<img src="img/yaowan.png"/>
+						<p>看病记录</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+				<li v-if="userInfo.type == 3">
+					<a href="dp/yishiguanli.html">
+						<img src="img/yishiguanli.png"/>
+						<p>医师管理</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li> 
+				<li>
+					<a href="lianxi.html">
+						<img src="img/person-6.png"/>
+						<p>联系我们</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+				<li>
+					<a href="shezhi.html">
+						<img src="img/person-7.png"/>
+						<p>设置</p>
+						<span><img src="img/person-8.png"/></span>
+					</a>
+				</li>
+			</ul>
+			<a id="out" @click="loginOut"><input type="button" value="退出账号" /></a>
+		</section>
+	</div> 
+	</div>
+</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/vue.js"></script> 
+	<script src="js/common/common.js"></script> 
+	<script src="js/common/castapp.js"></script> 
+<script> 
+	mui.init()
+	ca.init()
+	var vm;
+	mui.plusReady(function(){
+		vm = new Vue({
+			el:'#app',
+			data:{
+				userInfo:{}
+			},
+			methods:{
+				
+			},
+			mounted:function(){
+				if(uId){
+		    		fns.getUserInfo();
+		    	} 
+			}   
+		})
+		
+	})
+	
+	//退出登陆
+	function loginOut(){
+		 localStorage.clear();
+		//通知页面刷新
+		var arr = ['index.html','assort.html','shopcar.html','self.html',plus.runtime.appid];
+		ca.sendNotice(arr,'Refresh',{});
+        mui.openWindow({
+        	url:'login.html',
+        	id:'login.html'
+        })
+	}
+	$(function () {
+    	//我的预约
+    	$('.appointment').on('tap',function(){
+			common.openWindow({ 
+				url:'appointment.html',
+				id:'appointment.html'
+			})
+    	})   
+    })
+    //监听刷新 
+    window.addEventListener('Refresh',function(){ 
+    	uId = localStorage.getItem('uId')
+    	uType = localStorage.getItem('uType')
+    	fns.getUserInfo(); 
+    })
+    
+    !function(fn){
+    	//获取用户数据
+    	fn.getUserInfo = function(){
+    		var data = {
+    			url:API.url1+'api/Users/getUserInfo',
+    			uId:uId
+    		}
+    		common.get(data,function(e){
+    			if(e.code == 1){
+    				vm.$data.userInfo = e.data;
+    			}
+    		})
+    	}
+    	
+    	
+    }(window.fns ? window.fns : window.fns = {})
+    
+    
+    
+    
+    
+</script>
+</html>

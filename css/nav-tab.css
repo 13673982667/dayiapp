@@ -1,0 +1,136 @@
+.mui-bar-tab{
+	box-shadow: none;
+}
+nav a span.plus {
+	display: block;
+	position: fixed;
+	left: calc(50% - 30px);
+	bottom: 2px;
+	border: 6px solid #F7F7F7;
+	background-color: #F7F7F7;
+	border-radius: 50%;
+	border-bottom: none;
+}
+.mui-title{
+	font-size: 20px!important;
+}
+
+nav a span.plus img {
+	height: 48px;
+	width: 48px;
+}
+.mui-bar-tab a span.iconfont{
+	font-size: 24px;
+	display: block;
+}
+.mui-bar-tab a span{
+	font-size: 12px;
+}
+.mui-bar-tab a span.iconfont{
+	/*font-size: 19px;*/
+	/*padding-top: 5px;*/
+}
+body{
+	/*background: rgba(0,0,0,0);*/
+}
+header{
+	padding: 20px 4% 0 3.3%!important;
+	height:64px!important;
+}
+.mui-bar-nav~.mui-content {
+    padding-top: 64px;
+}
+.public-nav-height{
+	height:55px!important;
+}
+.mui-content{
+	    /*padding-bottom: 70px!important;*/
+}
+
+
+.public-img-div{
+	padding-bottom: 56%;width: 100%; position: relative;
+}
+
+.public-img{
+	width: 100%;height: 100%;position:absolute; top: 0;left: 0;
+}
+
+
+
+.right-img{
+	margin-top: 16px;
+	width: 70px!important;
+	height:70px!important;
+	/*display: block;*/
+}
+.left-content{
+	/*width: calc(65% - 10px);*/
+	/*min-height: 96px;*/
+	display: flex;
+	align-content: stretch;
+	flex-wrap: wrap;
+	/*padding: 15px 0px;*/
+	margin-top: 8px;
+}
+.left-content .content-top{
+	padding-right: 8px;
+	width: 100%;
+}
+.left-content .content-top>p{
+	font-size:14px;
+	width: 100%;
+	text-align: justify;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	word-break: break-all;
+	overflow: hidden;
+	line-height: 14px;
+	max-height: 41px;
+}
+
+.lz {
+	align-self: flex-end;
+	margin: 6px 0px;
+	line-height: 17px;
+	
+	color: #AEAEAE;
+	
+}
+.lz>div>p{
+	font-size:10px;
+}
+.top-con {
+	display: flex;
+	/*align-items: center;*/
+	justify-content: space-between;
+	border-bottom: 1px solid #f6f6f6;
+}
+.content-top > h1{
+	line-height: 19px;
+	font-size: 18px!important;
+}
+.content-top > p{
+	color: #aeaeae;
+	margin:5px 0px;
+}
+.imgaa{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.imgaa>img{
+	width: 31px!important;
+	height: 31px!important;
+	border-radius: 50%;
+}
+.mui-bar-nav1{
+	height: 20px!important;
+	padding: 0!important;
+	top: 0;
+	position: fixed;
+	box-shadow: none;
+	background-color: rgba(60,60,60,0.2);
+	border: 0;
+}

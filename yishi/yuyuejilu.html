@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../iconfont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/yuyuejilu.css" />
+	</head>
+
+	<body>
+   		<script src="../js/rem.js"></script>
+		<header class="top-header">
+			<a class="icona mui-action-back" > 
+				<img src="../image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>预约记录</h3>
+		</header> 
+		<div class="mui-content" id="app">     
+		    <div v-if="List">
+		    	<ul class="mui-table-view">
+	    	        <li class="mui-table-view-cell content-li" v-for="(v,k) of List">
+	    	            <div class="li-left">
+	    	            	<p><span class="name">{{v.nickname}}</span><font>牙痛 7-21 9点</font></p>
+	    	            	<p>{{v.phone}}</p>
+	    	            </div>
+	    	            <div class="li-right" v-if="v.status == 0">
+	    	            	<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined" @click="zhiliaoClick(k)" >已治疗</button>
+	    	            	<button type="button" @click="shuangyueClick(k)" class="mui-btn mui-btn-primary mui-btn-outlined">爽约</button>
+	    	            </div> 
+	    	            <div class="li-right" v-else>
+	    	            	<button type="button" class="mui-btn" >
+	    	            		<template v-if="v.status == 2">以治疗</template>
+	    	            		<template v-if="v.status == 3">爽约</template>
+	    	            	</button>
+	    	            	
+	    	            </div> 
+	    	        </li>  
+	    	    </ul>
+		    </div> 
+		    <div v-else>暂无记录</div>
+		</div>
+		
+	</body>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../js/mui.min.js"></script> 
+	<script src="../js/common/castapp.js"></script>
+	<script src="../js/common/vue.js"></script>
+	<script src="../js/common/common.js"></script>
+	<script src="js/yuyuejilu.js"></script>
+	
+	<script type="text/javascript"> 
+		mui.init()
+		var vm;
+		mui.plusReady(function(){
+			vm = new Vue({
+				el:'#app',
+				data:{
+					List:{}
+				},
+				methods:{
+					shuangyueClick:fns.shuangyue,
+					zhiliaoClick:fns.zhiliao
+				},
+				mounted:function(){
+					fns.getList();
+				} 
+			})
+		})
+		
+	</script>
+</html>

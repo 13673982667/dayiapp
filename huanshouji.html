@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>换绑手机</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<link rel="stylesheet" href="js/need/layer.css" />
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/layer.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+	<body style="background-color: #f1f1f1;">
+		<header class="page-header " style="background: #44b8fe;">
+			<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" /></a>
+			<h3 style="color: #FFFFFF;">换绑手机</h3>
+		</header>
+			<div class="boxabout1" style="margin-top: 30px;">
+				<span>手机号</span>
+				<input type="text" name="" id="shouji" value="" placeholder="请输入新手机号"/>
+			</div>
+			<div class="boxabout1">
+				<span>密码</span>
+				<input type="password" name="" id="mima" value="" placeholder="请输入您的密码"/>
+			</div>
+		<div class="boxabout1">
+			<span>验证码</span>
+			<input type="text" name="" id="phonecode" value="" placeholder="请输入验证码"/>
+			<input type="button" id="yanzheng" value="获取验证码" />
+		</div>
+		
+		<div class="phonetex">
+			验证后绑定新手机号
+		</div>
+			
+	
+
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/common.js"></script> 
+	<script type="text/javascript">
+		$(function(){
+			$("#yanzheng").click(function(){
+				var phone=$("#shouji").val();
+				var pwd=$("#mima").val();
+				var pl=phone.length;
+				if(phone==""){
+					layer.open({
+						content: '请输入手机号码!',
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+				}else if(pl!==11){
+					layer.open({
+						content: '手机号格式不正确!',
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+				}else if(pwd==""){
+					layer.open({
+						content: '请输入密码!',
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+				}else{
+					$.ajax({
+						type:"post",
+						async:true,
+						url:API.url+"APP/home/existphone.php",
+						data:{phone:phone,password:pwd,uid:uId},
+						dataType:'json',
+						success:function(date){
+							console.log(JSON.stringify(date))
+							var da=date
+							if(da.code==1||da.code==4||da.code==3){
+								layer.open({
+				                content: da.message,
+				                skin: 'msg',
+				                time: 2 //2秒后自动关闭
+				            });
+							}else{
+								var num=60;
+								$("#yanzheng").attr("disabled", true); 
+                        	timer=setInterval(function(){
+                        		num--;
+                        		if(num > 0){
+								  $("#yanzheng").val(+num+"s后重新获取");
+								 }else{ 
+								  clearInterval(timer); //清除js定时器
+								  $("#yanzheng").attr("disabled", false); 
+								  $("#yanzheng").val("获取验证码");
+								  num = 60; //重置时间
+								 }
+                        	},1000);
+                        	if(num==0){
+                        		clearInterval(timer);
+                        		$("#yanzheng").val("点击获取验证码");
+                        		$("#yanzheng").attr("disabled", false); 
+                        	}
+							}
+							
+						}
+					});
+					
+				}
+			})
+			$(".phonetex").click(function(){
+				var phone=$("#shouji").val();
+				var pwd=$("#mima").val();
+				if(phone==""||pwd==""){
+					return false;
+				}
+				var code=$("#phonecode").val();
+        		$.post(API.url+'APP/home/existcode.php',{val:code},function(date){
+                    var da=jQuery.parseJSON(date);
+                    if(da.code==1){
+                    	$.ajax({
+                    		type:"post",
+                    		url:API.url+"APP/home/editphone.php",
+                    		data:{
+                    			phone:phone,
+                    			code:pwd,
+                    			uid:uId
+                    		},
+                    		success:function(date){
+                    		
+//                  			var da=jQuery.parseJSON(date);
+//                  			if(da.code==1){
+//                  				$.ajax({
+//						                url:API.url+'APP/home/outlogin.php',
+//						                type:"POST",
+//						                data:{outlogin:'outlogin'},
+//						                async:'false',
+//						                dataType:'json',
+//						                success:function (date) {
+//						                    console.log(date);
+//						                    if(date.code == 1){
+//						                        localStorage.clear();
+//						                       window.location.href="login.html";
+//											}
+//						                }
+//						            })
+//                  			}	 
+                    		}
+                    	});
+                    }else{
+                       layer.open({
+			                content: '验证码有误!',
+			                skin: 'msg',
+			                time: 2 //2秒后自动关闭
+			            });
+                        return false;
+                    }
+                });
+        	
+			})
+		})
+	</script>
+</html>

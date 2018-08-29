@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+    	$(window).load(function(){
+    		$(".loading").addClass("loader-chanage")
+    		$(".loading").fadeOut(300)
+    	})
+    </script>
+</head>
+<!--loading页开始-->
+<div class="loading">
+	<div class="loader">
+        <div class="loader-inner pacman">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+	</div>
+</div>
+<body>
+	<div class="p-top  clearfloat">
+		<!-- <a href="personal.html"> -->
+		<a href="datum.html">
+			<div class="tu">
+				<img class="userimg" src="../img/loading.gif"/>
+			</div>
+			<p class="name">欢迎您,<span class="username"></span></p>
+		</a>
+	</div>
+	<div class="contaniner fixed-contb" id="app">
+		<section class="self" >						
+			<ul class="self-icon">
+				<li class="more">
+					<a href="../datum.html">
+						<img src="../img/person-1.png"/>
+						<p>个人资料</p>
+						<span><img src="../img/person-8.png"/></span>
+					</a>
+				</li>
+				<li>
+					<a href="im.html">
+						<img src="../img/person-6.png"/>
+						<p>资讯患者</p>
+						<span><img src="../img/person-8.png"/></span>
+					</a>
+				</li>
+				<li>
+					<a href="yuyuejilu.html">
+						<img src="../img/yuyue.png"/>
+						<p>预约记录</p>
+						<span><img src="../img/person-8.png"/></span>
+					</a>
+				</li>
+				<li>
+					<a href="kanbingjilu.html">
+						<img src="../img/yaowan.png"/>
+						<p>看病记录</p>
+						<span><img src="../img/person-8.png"/></span>
+					</a>
+				</li>
+				<li>
+					<a href="../shezhi.html">
+						<img src="../img/person-7.png"/>
+						<p>设置</p>
+						<span><img src="../img/person-8.png"/></span>
+					</a>
+				</li>
+			</ul>
+			<a id="out"><input type="button" value="退出账号" /></a>
+		</section>
+	</div> 
+	
+</body>
+	<script src="../js/common/mui.js"></script>
+	<script src="../js/common/vue.js"></script> 
+	<script src="../js/common/common.js"></script> 
+	<script src="../js/common/castapp.js"></script> 
+<script>
+	mui.init()
+	ca.init()
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			uType:uType
+		},
+		methods:{
+			
+		},
+		mounted:function(){
+			
+		}
+	})
+	$(function () {
+    	//我的预约
+    	$('.appointment').on('tap',function(){
+			common.openWindow({
+				url:'appointment.html',
+				id:'appointment.html'
+			})
+    	})
+    	//个人资料
+    	
+    	
+		//退出登陆
+		$("#out").on('tap',function(){
+            localStorage.clear();
+			//通知页面刷新
+			var arr = ['index.html','assort.html','shopcar.html','self.html',plus.runtime.appid];
+			ca.sendNotice(arr,'Refresh',{});
+            mui.openWindow({
+            	url:'../login.html',
+            	id:'../login.html'
+            })
+		})
+		
+    })
+    mui.plusReady(function(){
+
+    })
+    //监听刷新
+    window.addEventListener('Refresh',function(){
+    	uId = localStorage.getItem('uId')
+    	fns.getUserInfo(); 
+    })
+    
+    !function(fn){
+    	//获取用户数据
+    	fn.getUserInfo = function(){
+    		var data = {
+    			url:API.url1+'api/Users/getUserInfo',
+    			uId:uId
+    		}
+    		common.get(data,function(e){
+    			if(e.code == 1){
+    				$(".username").html(e.data.nickname);
+    				$(".userimg").attr('src',e.data.pic);
+    			}
+    		})
+    	}
+    	if(uId){
+    		fn.getUserInfo();
+    	}
+    	
+    }(window.fns ? window.fns : window.fns = {})
+    
+    
+    
+    
+    
+</script>
+</html>

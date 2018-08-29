@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>个人资料</title>
+    <link rel="stylesheet" type="text/css" href="css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" href="css/toothwash.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" href="css/layer.css">
+    <script src="js/layer.js"></script>
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(window).load(function(){
+            $(".loading").addClass("loader-chanage");
+            $(".loading").fadeOut(300);
+        })
+    </script>
+</head>
+<!--loading页开始-->
+<div class="loading">
+    <div class="loader">
+        <div class="loader-inner pacman">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<!--loading页结束-->
+<body>
+<header class="top-header">
+    <a class="icona" href="javascript:history.go(-1)">
+        <img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" />
+    </a>
+    <h3>更换头像</h3>
+</header>
+<div class="contaniner">
+    <input type="file" value="" title=""   accept="image/*" class="weui_input"  id="touxiang" name="touxiang" required/><img class="userimg" src="./img/touxiang.png" alt="">
+    <div class="container-fluid" style="text-align: center;margin-top: 100px;">
+        <button id="submit">提  &nbsp;交</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+$(function(){
+		function getObjectURL(file) {
+        var url = null ; 
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+        $("#touxiang").on("change",function() {
+          var srcs = getObjectURL(this.files[0]); 
+          $(this).next().attr("src",srcs); 
+        })
+    function getQueryString(name) { 
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+	    var r = window.location.search.substr(1).match(reg); 
+	    if (r != null) return unescape(r[2]); return null; 
+	};
+	var pic=getQueryString("cn");
+	if(pic!==null){
+		$(".userimg").attr("src",pic); 
+	}
+})
+    $("#submit").click(function(){
+    	var pic=$(".userimg")[0].src;
+    	$.ajax({
+    		type:"get",
+    		url:'http://www.63218860.com/APP/home/editimg.php',
+    		data:{pic:pic},
+    		async:true,
+    		success:function(date){
+      		layer.open({
+                content: '保存成功!',
+                skin: 'msg',
+                time: 2 //2秒后自动关闭
+            });
+            return false;
+    		}
+    	});
+    
+    	window.location.href="datum.html?cn="+pic;
+//	        layer.open({
+//              content: '没有修改!',
+//              skin: 'msg',
+//              time: 2 //2秒后自动关闭
+//          });
+//          return false;
+    });
+
+</script>
+</html>

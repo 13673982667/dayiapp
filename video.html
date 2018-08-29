@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		</style>
+		<link rel="stylesheet" href="fonts/iconfont.css" rel="external nofollow">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/pullToRefresh.css" rel="external nofollow">
+		<link rel="stylesheet" href="css/video.css" rel="external nofollow">
+   		<script src="js/rem.js"></script>
+   		
+		<style>
+			
+		</style>
+	</head>
+		
+	<body> 
+		<header class="mui-bar mui-bar-nav" id="header" style="position: absolute; top: 0; margin-top: 0;">
+		    <div class="texttop">
+		    	<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;"/></a>
+		        <span>视频</span>
+		    </div> 
+		</header> 
+		<div class="mui-content" id="app">
+			<div id="refreshContainer" class=" mui-scroll-wrapper" style="padding-top: 1.44rem;">
+				<div class="mui-scroll">
+					<ul class="content-ul">
+				        <li class="" v-for="(v,k) of List" :id="v.id"> 
+
+				            <video  
+				            	 :vid="v.id" :src="v.v_url"
+				            	  controls=controls 
+				            	  playsinline
+								  webkit-playsinline 
+				            	  autobuffer autoloop preload controls >
+				            	<source  :src="v.v_url" type="video/mp4"></source>
+				            	<source  :src="v.v_url" type="video/ogg"></source>
+				            	<source  :src="v.v_url" type="video/webm"></source>
+				            	当前浏览器不支持 video直接播放
+				            </video> 
+				            <div class="vd">
+				            	<img :src="v.pic || 'img/video_default.png'" alt=""  />
+				            	<div class="vd-play mui-icon iconfont icon-bofang" :vid="v.id" onclick="fns.play(this)">
+				            		  
+				            	</div> 
+				            </div>  
+				        </li>  
+					</ul>
+				</div>  
+			</div> 
+    	</div>
+	</body> 
+<script src="js/common/mui.js"></script>
+<script src="js/common/castapp.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/common/vue.js"></script>
+<script src="js/common/common.js"></script>  
+<script src="js/app/video.js"></script>  
+<script type="text/javascript">
+	mui.init();  
+	ca.init(); 
+//	window.location.href="http://www.jq22.com/demo/jQuery-video201702170013/"
+//	$('body').on('tap','li',function(e){
+//		fns.play(this);
+////		var this_ = this;
+//		
+//	})
+</script>
+</html> 

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>登录</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="js/need/layer.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/layer.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+		
+	</head>
+	<style type="text/css">
+		
+	</style>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body>
+		<div class="login">
+			<div class="logo">
+				<img src="image/logo.png" />
+			</div>
+			<form >
+				<ul>
+					<li>
+						<input type="text" name="phone" placeholder="请输入手机号" value="" id="phone" />
+					</li>
+					<li>
+						<input type="password" name="password" placeholder="请输入密码" value="" id="password" />
+					</li>
+					<!--<li>
+						<span class="remberpsd">自动登录</span>
+						<div class="fields__item">
+				            <input type="checkbox" class="uiswitch" style="border-bottom: none;"value="None" id="squaredTwo" name="check">
+				        </div>
+					</li>-->
+				</ul>
+				<div class="zhuc">
+					<a href="sign.html">注册账号</a>
+					<a href="reset.html">忘记密码</a>
+				</div>
+				<input type="submit" value="登  录" id="submit" style="margin-top: 120px;" />
+			</form>
+			
+		</div>
+
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/castapp.js"></script>
+	<script src="js/common/common.js"></script>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack:false //关闭-右滑关闭功能
+		});
+ 
+		ca.init();
+		mui.plusReady(function(){
+			ws=plus.webview.currentWebview();    
+        	ws.setStyle({'popGesture':'none'});//ios关闭右划
+		})
+		//重写返回命令 禁用
+		var back = mui.back;
+		mui.back=function (){} 
+//监听注册成功事件
+	window.addEventListener('Refresh',function(){
+		uId = localStorage.getItem('uId')
+		uType = localStorage.getItem('uType')
+		if(uId){
+			back();
+		}
+	})
+	$(function(){
+	    var phone = localStorage.getItem("phone");
+	    var uId = localStorage.getItem("uId");
+        var autologin=window.localStorage.getItem("autologin");
+        var passWord=window.localStorage.getItem("pwd");
+		$("#phone").blur(function(){
+			if($(this).val().length!==11){
+				layer.open({
+					content: '手机号格式不正确!',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
+				});
+			}
+		}) 
+		$('#submit').click(function() {
+			var phone = jQuery("#phone").val();
+			var passWord = jQuery("#password").val();
+			
+			if(phone==""){
+				layer.open({
+					content: '请填写手机号码!',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
+				});
+				return false;
+			}
+			if(passWord==""){
+				layer.open({
+					content: '请填写密码!',
+					skin: 'msg',
+					time: 2 //2秒后自动关闭
+				});
+				return false;
+			}		
+			$.ajax({
+				type: "get",
+				async: false, 
+				url: API.url1+"api/Users/login",
+				dataType: "json",
+				data: { phone: phone, password: passWord }, 
+				success: function(data){
+					console.log(JSON.stringify(data));
+					if(data.code == 1) { 
+ 
+						localStorage.setItem('uId',data.data); 
+						//通知页面刷新
+						var arr = ['index.html','assort.html','shopcar.html','self.html',plus.runtime.appid];
+						ca.sendNotice(arr,'Refresh',{}); 
+						
+						//关闭登陆页面
+						back();
+//						window.location.href = 'nav-tab.html?cn='+phone;  
+//						window.location.href = 'index.html?cn='+phone;  
+					}else{ 
+						layer.open({ 
+							content: data.message,
+							skin: 'msg',
+							time: 2 //2秒后自动关闭
+						});
+					}
+				},
+				error:function(){
+					mui.toast('error')
+				}
+			});
+			return false;
+		});
+	 
+});  
+
+	
+	</script>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+		<style>
+			.self-data li p{
+				float: initial;
+				 font-size: 1.45em; 
+				padding: 0;
+				text-align: left;
+				 color: #333; }
+		</style>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+	<body>
+		<header class="top-header">
+			<a class="icona mui-action-back" >
+				<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>联系我们</h3>
+		</header>
+		<div class="contaniner" id="app">
+			<ul class="self-data">
+				<li v-for="(v,k) of List">
+					<div class=''>
+						<p class=''>{{v.dp_name}}</p>
+						<p class=''>{{v.tel}}</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/vue.js"></script>
+	<script src="js/common/common.js"></script>
+	<script>
+		var vm;
+		mui.init(); 
+		mui.plusReady(function(){
+			vm = new Vue({
+				el:'#app',
+				data:{
+					List:[]
+				},
+				methods:{
+					
+				},
+				mounted:function(){
+					fns.getList();
+				}
+			})
+		})
+		
+		!function(fn){
+			
+			fn.getList = function(){
+				var data = { 
+					url : API.url1+'api/Dp/getDpList'
+				}
+				common.get(data,function(e){
+					console.log(JSON.stringify(e));
+					if(e.code == 1){
+						vm.$data.List = e.data
+					}
+				})
+				
+			}
+			
+		}(window.fns ? window.fns : window.fns = {})
+		
+		$(function(){
+//			console.log(API.url+"APP/home/contact_us.php");
+//			$.ajax({
+//				type:"post",
+//					url: API.url+"APP/home/contact_us.php",
+//					data:{icon:1},
+//					dataType:"json",
+//					async:false,
+//					success:function(date){
+//						console.log(JSON.stringify(date));  
+//						$.each(date.data, function(idx,name) {
+//							$(".self-data").append("<li><div class='top'><p class='storename'>"+this.storename+"</p><p class='telephone'>"+this.telephone
+//							+"</p></div><br><div class='hide'><p class='addres'>地址:</p><p>"+this.address+"</p><br/><p class='wei'>微信关注:</p><img class='weixinimg' src='this.QRcode'></div></li>");
+//							$(".weixinimg").attr("src",this.QRcode);
+//						});
+//						$(".telephone").html(date.data.telephone);
+//						$(".storename").html(date.data.storename);
+//						$(".address").html(date.data.address);
+//						$(".hide").hide();			
+//						$(".self-data li").click(function(){
+//							$(this).find(".hide").toggle();
+//						})
+//					}, 
+//					error:function(e){
+////						console.log(JSON.stringify(e));  
+//						
+//					}
+//			})  
+		})
+	</script>
+</html>

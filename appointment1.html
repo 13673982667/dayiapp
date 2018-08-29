@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+		<style type="text/css">
+			.p-center{
+				display: flex;
+				justify-content:center;
+			}
+		</style>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body>
+		<header class="top-header">
+			<a class="icona mui-action-back" >
+				<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>我的预约</h3>
+		</header>
+
+		<div class="contaniner" id="app">
+			<div class="conten"style="margin:5% 10%;" v-show="list.length > 0">
+				<h3>未完成预约</h3>
+				<ul class="listta">
+					<li style="text-align: left;" v-for="(item,value,index) of list">
+						<p>预约日期:<span class="date">{{item.date_time}}</span><span class="hideid"></span></p>
+						<p>预约时间:<span class="time">{{item.timetypeinfo.str}}</span></p>
+						<p>预约病由:<span class="disease">{{item.disease}}</span></p>
+						<p>预约医师:<span class="doctor">{{item.doc_username}}</span></p>
+						
+						<div class="p-center">
+							<button class="xiugai" @click="updateOne(item.id)">修改</button>
+							&nbsp;&nbsp;&nbsp;
+							<button class="quxiao" @click="deleteOne(item.id,value)">取消</button>
+						</div>
+					</li>	
+				</ul> 
+				
+			
+			</div>
+			<div class="conten"style="margin:5% 10%;">
+				<h3>已完成预约</h3>
+				<ul class="listtb">
+					
+				</ul>
+			</div>
+			
+		</div>
+
+	</body>
+		<script src="js/common/mui.js"></script>
+		<script src="js/common/vue.js"></script> 
+		<script src="js/common/common.js"></script>
+	<script>
+		mui.init();
+		var vm;
+		mui.plusReady(function(){
+			vm = new Vue({
+				el:'#app',
+				data:{
+					list:[]
+				},
+				methods:{
+					//删除一个数据
+					deleteOne:function(id,index){
+						var data = {
+							url:API.url1+'api/Doctortime/deleteOne',
+							id:id
+						}
+						common.getp(data,function(e){
+							console.log(JSON.stringify(e));
+							if(e.code == 1){
+								//从数组的第2个下标开始截一位 同时插入一位
+    							vm.list.splice(index,1)  
+								mui.toast('删除成功') 
+							}else{
+								mui.toast(e.message)
+							}
+							
+						});
+					},
+					//修改
+					updateOne:function(id){
+						mui.openWindow({
+							url:'yishijieshao.html?update='+id,
+							id:'yishijieshao.html'
+						}) 
+					}
+				},
+				mounted:function(){  
+					//获取列表
+					fns.getList();
+		        },
+			})
+			
+		})
+		
+		//接收刷新页面事件
+		window.addEventListener('Refresh',function(){
+			//获取列表
+			fns.getList();
+		})
+		
+		!function(fn){
+			//获取我的预约列表
+			fn.getList = function (){ 
+
+				var data = { 
+					url:API.url1+'api/Doctortime/getDoctorTimeList', 
+					uId:uId,
+				}
+				common.get(data,function(e){ 
+//					console.log(JSON.stringify(e));  
+					if(e.code == 1){
+						vm.$data.list = e.data
+					} 
+				})
+			}
+			 
+		}(window.fns ? window.fns : window.fns = {})
+		 
+		
+		
+		
+		
+		
+		$(function(){
+			
+//			http://www.63218860.com/APP/home/end_appointment.php
+//			$.ajax({
+//				type:"post",
+//				url:"http://www.63218860.com/APP/home/search_appointment.php",
+//				async:false,
+//				data:{status:1},
+//				success:function(date){
+//					
+//					var da=jQuery.parseJSON(date);
+//					console.log(da)
+//					$(".date").html(da.dat);
+//					$(".time").html(da.tim);
+//					$(".hideid").html(da.id);
+//					$(".doctor").html(da.doctor);
+//					$(".disease").html(da.disease);
+//				}
+//			});
+//			$.ajax({
+//				type:"post",
+//				url:"http://www.63218860.com/APP/home/end_appointment.php",
+//				async:false,
+//				data:{status:1},
+//				success:function(date){
+//					
+//					var da=jQuery.parseJSON(date);
+//					console.log(da)
+//					$.each(da, function() {
+//					
+//						$(".listtb").append("<li><p>预约日期:<span>"+this.dat+"</span><p><p>预约时间:<span>"+this.tim+"</span></p><p>预约病由:<span>"+this.disease+"</span></p><p>预约医师:<span>"+this.doctor+"</span></p></li>")
+//					});
+//				}
+//			});
+//			$(".quxiao").click(function(){
+//				var id=$(".hideid").html();
+//				var name=localStorage.getItem("TRUENAME");
+//				var time=$(".time").html();
+//				var date=$(".date").html();
+//				console.log(name)
+//				$.ajax({
+//					type:"post",
+//					url:"http://www.63218860.com/APP/home/del_appointment.php",
+//					async:false,
+//					data:{uid:id,username:name,tim:time,dat:date},
+//					success:function(date){
+//						if(date==1){
+//							alert("取消成功");
+//						}
+//					}
+//				});
+//			})
+		})
+	</script>
+</html>

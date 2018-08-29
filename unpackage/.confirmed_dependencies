@@ -1,0 +1,199 @@
+{
+  "login.html": {
+    "refer": [
+      "index.html",
+      "sign.html",
+      "nav-tab.html",
+      "reset.html",
+      "shezhi.html"
+    ],
+    "resources": []
+  },
+  "index.html": {
+    "refer": [
+      "shopcar.html",
+      "self.html",
+      "baike.html",
+      "assort.html",
+      "toothwash.html",
+      "extraction.html",
+      "plant.html",
+      "correct.html",
+      "children.html",
+      "repair.html",
+      "im/index.html",
+      "im/im.html",
+      "im.html",
+      "video.html",
+      "yishi/im.html",
+      "720/page1.html",
+      "720/index.html"
+    ],
+    "resources": [
+      "image/banner4.jpg",
+      "image/banner3.jpg",
+      "image/banner1.jpg"
+    ]
+  },
+  "chooseyayi.html": {
+    "refer": [
+      "yishijieshao.html",
+      "shopcar.html"
+    ],
+    "resources": []
+  },
+  "shopcar.html": {
+    "refer": [
+      "chooseyayi.html",
+      "self.html",
+      "index.html",
+      "assort.html",
+      "toothwash.html"
+    ],
+    "resources": []
+  },
+  "self.html": {
+    "resources": [
+      "img/person-2.png"
+    ],
+    "refer": [
+      "login.html",
+      "index.html",
+      "datum.html",
+      "appointment.html",
+      "shopcar.html",
+      "assort.html",
+      "lianxi.html",
+      "shezhi.html",
+      "yishi/kanbingjilu.html",
+      "dp/yishiguanli.html",
+      "yishi/yuyuejilu.html",
+      "yishi/im.html",
+      "im.html"
+    ]
+  },
+  "datum.html": {
+    "refer": [
+      "self.html"
+    ],
+    "resources": []
+  },
+  "sign.html": {
+    "refer": [
+      "login.html",
+      "sign.html"
+    ],
+    "resources": []
+  },
+  "appointment.html": {
+    "refer": [
+      "self.html",
+      "shopcar.html",
+      "yishijieshao.html"
+    ],
+    "resources": []
+  },
+  "baike.html": {
+    "refer": [
+      "index.html"
+    ],
+    "resources": []
+  },
+  "assort.html": {
+    "refer": [
+      "index.html",
+      "shopcar.html",
+      "detail.html"
+    ],
+    "resources": []
+  },
+  "nav-tab.html": {
+    "resources": [
+      "index.html",
+      "kefu/self.html"
+    ],
+    "refer": [
+      "index.html",
+      "self.html",
+      "shopcar.html",
+      "assort.html",
+      "login.html",
+      "kefu/im.html",
+      "kefu/self.html",
+      "yishi/self.html",
+      "yishi/im.html",
+      "im.html"
+    ]
+  },
+  "shezhi.html": {
+    "refer": [
+      "zhanghu.html",
+      "login.html"
+    ]
+  },
+  "zhanghu.html": {
+    "refer": [
+      "shezhi.html",
+      "huanshouji.html",
+      "mima.html"
+    ]
+  },
+  "huanshouji.html": {
+    "refer": [
+      "zhanghu.html"
+    ]
+  },
+  "toothwash.html": {
+    "refer": [
+      "shopcar.html"
+    ]
+  },
+  "im/index.html": {
+    "resources": [
+      "im/dist/css/theme.css"
+    ]
+  },
+  "im/im.html": {
+    "resources": [
+      "im/index.html"
+    ],
+    "refer": [
+      "im/index.html"
+    ]
+  },
+  "kefu/self.html": {
+    "resources": [
+      "img/person-2.png"
+    ],
+    "refer": [
+      "kefu/im.html",
+      "datum.html",
+      "shezhi.html",
+      "login.html"
+    ]
+  },
+  "yishi/self.html": {
+    "refer": [
+      "yishi/im.html",
+      "yishi/yuyuejilu.html",
+      "yishi/kanbingjilu.html",
+      "login.html",
+      "datum.html",
+      "shezhi.html"
+    ],
+    "resources": [
+      "img/person-2.png"
+    ]
+  },
+  "yishi/kanbingjilu.html": {
+    "refer": [
+      "yishi/binglitianxie.html",
+      "yishi/binglitianxie1.html"
+    ]
+  },
+  "yishi/binglitianxie.html": {
+    "refer": [
+      "yishi/binglitianxie1.html"
+    ]
+  }
+}

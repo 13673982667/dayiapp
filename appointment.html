@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" href="css/pullToRefresh.css" rel="external nofollow">
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/appointment.css" />
+		  
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		
+		 
+	</head>
+	<body>
+		<header class="top-header">
+			<a class="icona mui-action-back" >
+				<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>我的预约</h3>
+		</header>
+		<div class="mui-content" id="app">
+			<div id="slider" class="mui-slider">
+				<div style="background: #eee;">
+					<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							正在预约
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							预约历史 
+						</a>
+					</div>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="item1">
+									<div class="conten"style="margin:5% 10%;" v-if="List.length > 0" >
+										<ul class="listta">
+											<li style="text-align: left;" v-for="(item,value,index) of List">
+												<p>预约日期:<span class="date">{{item.date_time}}</span><span class="hideid"></span></p>
+												<p>预约时间:<span class="time">{{item.timetypeinfo.str}}</span></p>
+												<p>预约病由:<span class="disease">{{item.disease}}</span></p>
+												<p>预约医师:<span class="doctor">{{item.yname}}</span></p>
+												
+												<div class="p-center">
+													<button class="xiugai" @click="updateOne(item.id)">修改</button>
+													&nbsp;&nbsp;&nbsp;
+													<button class="quxiao" @click="deleteOne(item.id,value)">取消</button>
+												</div>
+											</li>	
+										</ul> 
+									</div>
+									<div v-else style="text-align: center; margin-top: 15px;">
+										暂无数据
+									</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="item2">
+									<ul class="mui-table-view">
+									        <li class="mui-table-view-cell content-li" v-for="(v,k) of List">
+							    	            <div class="li-left">
+							    	            	<p><span class="name">医师：{{v.yname}}</span><font>牙痛 7-21 9点</font></p>
+							    	            </div>
+							    	            <div class="li-right" v-if="v.time_out == 0 && v.status == 0">
+							     	            	正在预约
+							    	            </div> 
+							    	            <div class="li-right" v-else>
+							    	            	<template v-if="v.status == 2">
+							    	            		已完成
+							    	            	</template> 
+							    	            	<template v-else-if="v.status == 3">
+							    	            		已超时
+							    	            	</template> 
+							    	            	<template v-else>
+							    	            		已超时
+							    	            	</template> 
+							    	            </div> 
+							    	        </li>  
+									    </ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	</body>
+
+		<script src="js/common/mui.js"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<script src="js/common/vue.js"></script> 
+		<script src="js/common/common.js"></script>
+		<script src="js/appointment.js"></script>
+	<script>
+		mui.init();
+		var item1;
+		var item2;
+		mui.plusReady(function(){
+			item1();
+			item2();
+		})
+		
+		//接收刷新页面事件
+		window.addEventListener('Refresh',function(){
+			//获取列表  正在预约的
+			fns.getList();
+		})
+		
+		 
+		 
+		
+		
+		
+	</script>
+</html>

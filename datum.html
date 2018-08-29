@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>个人资料</title>
+    <link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+    
+    <link rel="stylesheet" type="text/css" href="css/loaders.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/loading.css"/>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <link rel="stylesheet" href="js/need/layer.css" />
+
+    	<link rel="stylesheet" type="text/css" href="css/mui.picker.css" />
+	<link rel="stylesheet" type="text/css" href="css/mui.poppicker.css" />
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/layer.js"></script>
+    <script type="text/javascript">
+    	$(window).load(function(){
+    		$(".loading").addClass("loader-chanage");
+    		$(".loading").fadeOut(300);
+    	})
+    </script>
+    <style>
+    	.dp{
+    		background: transparent;
+		    border: none;
+		    height: 34px;
+    	}
+    	a {
+		    color: #666;
+		    text-decoration: none;
+		}
+		figure {
+		    margin: 0em 5px;
+		}
+		.tel {
+		    background: transparent;
+		    border: none;
+		    height: 34px;
+		}
+    </style>
+</head>
+<!--loading页开始-->
+<div class="loading">
+	<div class="loader">
+        <div class="loader-inner pacman">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+	</div>
+</div>
+<!--loading页结束-->
+<body> 
+	<header class="top-header">
+			<a class="icona mui-action-back" >
+					<img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" />
+				</a>
+			<h3>我的资料</h3>
+	</header>
+	<div class="contaniner" id="app">
+		<ul class="self-data">  
+			<li class="portrait">
+				<input type="file" accept="image/*" id="touxiang" onchange="selectImage(this);"/>
+				<a>
+					<p>头像</p>
+					<span><img src="img/person-8.png"/></span>					
+					<figure><img class="picture" src="img/touxiang.png"/></figure>
+				</a>
+			</li>
+			<li class="namechangea">
+				<a>
+					<p>昵称</p>
+					<span><img src="img/person-8.png"/></span>					
+					<input class="username" style="text-align: right;"></input>					
+				</a>
+			</li>  
+			<li>
+				<a >
+					<p>性别</p>
+					<span><img src="img/person-8.png"/></span>					
+					<select style="padding: 5px 10px;" class="sex">
+						<option value="0">男</option>
+						<option value="1">女</option>
+					</select>
+				</a>
+			</li>
+			<li class="" @click="dpClick" v-show="userInfo.type == 2">
+				<a>
+					<p>诊所</p>
+					<span><img src="img/person-8.png"/></span>					
+					<input class="dp" readonly style="text-align: right;" :value="userInfo.parent_info ? userInfo.parent_info.dp_name : ''">				
+					<input class="parent_id" type="hidden" :value="userInfo.parent_info ? userInfo.parent_info.id : ''">				
+					
+				</a>
+			</li> 
+			<li class="namechangea" v-show="userInfo.type == 3">
+				<a>
+					<p>店铺电话</p>
+					<span><img src="img/person-8.png"/></span>					
+					<input class="tel" style="text-align: right;"></input>					
+				</a>
+			</li>  
+		</ul>
+	</div>
+	<div class="container-fluid" style="text-align: center;margin-top: 20px;">
+            <button id="submita">保&nbsp;存</button>
+    </div>
+</body>
+<script src="js/common/mui.js"></script>
+<script src="js/mui.picker.js"></script>
+<script src="js/mui.poppicker.js"></script>
+<script src="js/common/castapp.js"></script>
+<script src="js/common/vue.js"></script>
+<script src="js/common/common.js"></script>
+<script src="js/app/datum.js"></script>
+<script>
+	mui.init()
+	ca.init()
+	var dpArr;
+	var vm = new Vue({
+		el:'#app',
+		data:{
+			uType:uType,
+			userInfo:{}
+		},
+		methods:{
+			dpClick:fns.dpClick
+		},
+		mounted:function(){
+			if(uId){
+				fns.getUserInfo()
+			}
+		}
+	})
+
+	var image = '';
+	function selectImage(file){
+	   if(!file.files || !file.files[0]){
+	   return;
+	}
+	var reader = new FileReader();
+	reader.onload = function(evt){
+	document.getElementById('touxiang').src = evt.target.result;
+	   image = evt.target.result;
+	}
+	reader.readAsDataURL(file.files[0]);
+	}
+	$(function(){  
+
+        function getObjectURL(file) {
+        	var url = null ; 
+	        if (window.createObjectURL!=undefined) { // basic
+	            url = window.createObjectURL(file) ;
+	        } else if (window.URL!=undefined) { // mozilla(firefox)
+	            url = window.URL.createObjectURL(file) ;
+	        } else if (window.webkitURL!=undefined) { // webkit or chrome
+	            url = window.webkitURL.createObjectURL(file) ;
+	        }
+	        return url ;
+	    }
+        
+        $("#touxiang").on("change",function() {
+            var srcs = getObjectURL(this.files[0]); 
+            $(".picture").attr("src",srcs); 
+        })
+        $("#submita").on("click",function(){
+        	var sex=$(".sex").val();
+        	var name=$(".username").val();
+        	var pic=$(".picture").attr('src'); 
+        	var tel = $(".tel").val();
+        	var data = {
+        		url:API.url1+'api/Users/updateUserInfo',
+        		sex:sex,
+        		nickname:name, 
+        		image:image,
+        		uId:uId ,
+        		tel:tel
+        	}
+        	if(data.image){
+        		data.pic = pic
+        	}
+        	
+//      	return console.log(JSON.stringify(data));   
+        	common.postp(data,function(e){
+        		console.log(JSON.stringify(e)); 
+        		if(e.code == 1){ 
+        			layer.open({  
+						content: '保存成功!',
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+					setTimeout(function(){
+//						//刷新
+						var arr = ['self.html'];
+						ca.sendNotice(arr,'Refresh',{});
+						mui.back()
+					},1000)  
+        		}else{
+        			layer.open({  
+						content: '保存失败!', 
+						skin: 'msg',
+						time: 2 //2秒后自动关闭
+					});
+        		}
+        })
+        	$(this).attr("disabled", true); 
+        	
+        	setTimeout(function(){
+        		
+//      		window.location.href="self.html";
+        	},1000)
+        })
+	})
+	
+</script>
+</html>

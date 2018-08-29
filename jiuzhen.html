@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束--> 
+	<body>
+		<header class="top-header">
+			<a class="icona" href="javascript:history.go(-1)">
+				<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>就诊记录</h3>
+		</header>
+		<div class="contaniner">
+			<ul class="self-data">
+			</ul>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				function getQueryString(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+			    var r = window.location.search.substr(1).match(reg); 
+			    if (r != null) return unescape(r[2]); return null; 
+			};
+			var uid=getQueryString("cn");
+				$.ajax({
+					type:"post",
+					url: "http://www.63218860.com/APP/home/visitingrecord.php",
+					data:{uid:uid},
+					dataType:"json",
+					success:function(date){
+						console.log(date.data);
+						$.each(date.data, function() {
+							console.log(this)
+							var address;
+							if(this.sign==111){
+								address="兴业口腔(未来路店)";
+							}else if(this.sign==222){
+								address="兴业口腔(商城路店)";
+							}else if(this.sign==333){
+								address="瑞美口腔";
+							}
+							$(".self-data").append("<li class='details'><a><p>"+address+"</p><span><img src='img/person-8.png'/></span><small>"+this.visittime+"</small></a></li>");
+							$(".details").click(function(){
+								var time=$(this).find("small").html();
+								window.location.href="jiuzhendetail.html?cn="+time;
+							})
+						});
+					}
+				});
+			})			
+		</script>
+	</body>
+
+</html>

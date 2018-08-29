@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/pullToRefresh.css" rel="external nofollow">
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/appointment.css" />
+		<style>
+			/*.mui-slider .mui-slider-group .mui-slider-item img{
+				width: initial;
+			}*/
+			.li-div{
+				display: flex;
+				justify-content: flex-start; 
+				width: calc(100% - 82px);
+				margin-right: 30px;
+			}
+			.mui-btn{
+				padding: 0px 4px;
+				font-size: 10px;
+			}
+			.status{
+				font-size: 10px;
+				color: #44b8fe;
+			}
+		</style> 
+		 
+	</head>
+	<body>
+		<header class="top-header">
+			<a class="icona mui-action-back" >
+				<img src="../image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+			</a>
+			<h3>医师管理</h3>
+		</header> 
+		<div class="mui-content" id="app">
+			<div id="slider" class="mui-slider">
+				<div style="background: #eee;">
+					<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							在职医师
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							注册医师
+						</a>
+					</div>
+					<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				</div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="item1">
+									<template  v-if="List.length > 0" >
+										<ul class="mui-table-view">
+										    <li class="mui-table-view-cell mui-media" v-for="(v,k) of List" :yid="v.id" v-if="v.status == 1">
+									            <img class="mui-media-object mui-pull-left" :src="v.pic">
+									            <div class="mui-media-body">
+    	            								<div style="display: flex; justify-content: space-between;">
+									               	 {{v.nickname}}
+													<Jinyong  :k="k" :name="'item1'"/>
+    	            								</div>
+									                <p class="mui-ellipsis">{{v.jineng}}</p>
+									            </div>
+										    </li>
+										</ul>
+									</template>
+									<div v-else style="text-align: center; margin-top: 15px;">
+										暂无数据
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<div id="item2">
+									<template  v-if="List.length > 0" >
+										<ul class="mui-table-view">
+										    <li class="mui-table-view-cell mui-media" v-for="(v,k) of List" :yid="v.id" >
+									            <img class="mui-media-object mui-pull-left" :src="v.pic">
+									            <div class="mui-media-body">
+    	            								<div style="display: flex; justify-content: space-between;">
+										               	 <div>{{v.nickname}}
+										               	 	<font class="status">
+										               	 		<template v-if="v.status == 3">已被禁用</template>
+										               	 		<template v-if="v.status == 0">医师申请</template>
+										               	 	</font> 
+										               	 </div>
+										               	 <div>
+															<Tongguo  :k="k" :name="'item2'" v-if="v.status != 1"></Tongguo>
+															<Jinyong  :k="k" :name="'item2'" v-if="v.status != 3"></Jinyong>
+														</div>
+    	            								</div>
+									                <p class="mui-ellipsis">{{v.jineng}}</p>
+									            </div>
+										    </li>
+										</ul>
+									</template>
+									
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+
+	</body>
+		<script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common/mui.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/common/vue.js"></script> 
+		<script src="../js/common/common.js"></script>
+		<script src="js/yishiguanli.js"></script>
+	<script>
+		mui.init();
+		var item1;
+		var item2;
+		uId = 13
+//		mui.plusReady(function(){
+			item1();
+			item2();
+//		})
+		
+		//接收刷新页面事件
+		window.addEventListener('Refresh',function(){
+			//获取列表  正在预约的
+			fns.getList();
+		})
+		
+		$('body').on('tap','li .jinyong',function(e){
+			setStatus(3,this);
+		})
+		$('body').on('tap','li .tongguo',function(e){
+			setStatus(1,this);
+		})
+		function setStatus(Status,dom){
+			var k = $(dom).attr('k')
+			var name = $(dom).attr('name'); 
+			var yid;
+			if(name == 'item1'){ 
+				yid = item1.$data.List[k].id
+			}else if (name == 'item2'){  
+				yid = item2.$data.List[k].id 
+			}
+			fns.updateUserInfo(yid,Status,function(e){
+//				console.log(JSON.stringify(e));
+				if(e.code == 1){
+					mui.toast('操作成功')
+					if(name == 'item1'){
+						item1.$data.List[k].status = Status
+					}else if (name == 'item2'){
+						item2.$data.List[k].status = Status
+					}
+				}else{
+					mui.toast(e.message)
+				}
+			});
+		}
+		 
+		
+		
+		
+	</script>
+</html>

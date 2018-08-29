@@ -1,0 +1,26 @@
+.content-li div{
+	display: flex;
+	justify-content: space-between;
+	padding-right: 10px;
+	align-items: center;
+}
+.tex{
+	position: relative;
+    padding: 11px 15px;
+    overflow: hidden;
+}
+.tex textarea{
+	width: calc(100% - 10px);
+	height: 20vh;
+	border: 1px solid #ddd;
+	margin: 5px 0;
+	padding: 5px;
+}
+.ok{
+	position: absolute;
+    right: 15px;
+    top: 12px;
+    color: #333;
+    font-size: 14px;
+}
+ 

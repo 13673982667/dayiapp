@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>账户与安全</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<script src="js/jquery.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>
+	</head>
+	<!--loading页开始-->
+	<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>
+	<!--loading页结束-->
+
+	<body style="background-color: #f1f1f1;">
+		<header class="page-header " style="background: #44b8fe;">
+			<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" /></a>
+			<h3 style="color: #FFFFFF;">账户与安全</h3>
+		</header>
+		<p>账户绑定</p>
+		<a href="huanshouji.html">
+			<div class="boxabout1">
+					<span>手机号</span>
+					<div>
+						<p>152****8654</p>
+						<img src="img/person-8.png" />
+					</div>
+				</div>
+		</a>
+		
+		<!--<div class="boxabout1">
+			<span>微信</span>
+			<div>
+				<p>未绑定</p>
+				<img src="img/person-8.png" />
+			</div>
+		</div>-->
+		<p>安全设置</p>
+		<a href="mima.html">
+			<div class="boxabout1">
+			<span>登录密码</span> 
+			<div>
+				<p>修改</p>
+				<img src="img/person-8.png" />
+			</div>
+		</div>
+		</a>
+		
+
+	
+
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/vue.js"></script> 
+	<script src="js/common/common.js"></script> 
+	<script type="text/javascript">
+		$(function() {
+		    var phone = $('#phone').text();
+		    var mphone = phone.substr(0, 3) + '****' + phone.substr(7);   
+//		    此时mphone 的值就是中间四位显示为*号的了； 
+		    $('#phone').text(mphone)
+		});
+	</script>
+
+</html>

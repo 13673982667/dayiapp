@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>修改密码</title>
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="css/mui.min.css" rel="external nofollow">
+		<link rel="stylesheet" href="js/need/layer.css" />
+		
+		<!--<script type="text/javascript">
+			$(window).load(function() {
+				$(".loading").addClass("loader-chanage")
+				$(".loading").fadeOut(300)
+			})
+		</script>-->
+	</head>
+	<!--loading页开始-->
+	<!--<div class="loading">
+		<div class="loader">
+			<div class="loader-inner pacman">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</div>-->
+	<!--loading页结束-->
+
+	<body style="background-color: #FFFFFF;">
+		<header class="page-header " style="background: #44b8fe;">
+			<a class="mui-action-back"><img src="image/back.png" style="position: absolute;top: 10px;left: 10px;" /></a>
+			<h3 style="color: #FFFFFF;">修改密码</h3>
+		</header>
+		<ul class="xiugaimima">
+			<li>
+				<p>当前密码</p>
+				<input type="password" name="" id="now" value="" />
+			</li>
+			<li>
+				<p>新密码</p>
+				<input type="password" name="" id="new0" value="" />
+			</li>
+			<li>
+				<p>确认新密码</p>
+				<input type="password" name="" id="new1" value="" />
+			</li>
+			<li>
+				<p>密码长度至少6个字符</p>
+			</li>
+			<li class="sure">
+				确定
+			</li>
+		</ul>
+
+	</body>
+	<script src="js/layer.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/common/common.js"></script>
+	
+	<script>
+		$(function(){
+			$(".sure").click(function(){
+				var now=$("#now").val();
+				var new0=$("#new0").val();
+				var new1=$("#new1").val();
+//				console.log(now);
+				if(now!==""&&new0!==""&&new1!==""){
+					if(new0 !== new1){
+						return mui.toast('两次输入的密码不一样！')
+					}
+					var data = {
+						url:API.url1+'api/Users/updateUserPwd',
+						ypwd:now,
+						pwd:new0,
+						uId:uId
+					}
+//					console.log(JSON.stringify(data));return 
+					common.postp(data,function(e){
+						if(e.code == 1){
+							mui.toast('修改成功');
+							mui.back();
+						}else{
+							mui.toast(e.message);
+						}
+					})
+					
+//					$.ajax({
+//						type:"post",
+//						url:"http://www.63218860.com/APP/home/editpassword.php",
+//						data:{password:now,newpassword:new0},
+//						async:false,
+//						dataType:"JSON",
+//						success:function(date){
+//							console.log(date);
+//							var da=jQuery.parseJSON(date);
+//							console.log(da)
+//							if(da.code==0){
+//								
+//								layer.open({
+//				                    content: '修改成功!',
+//				                    skin: 'msg',
+//				                    time: 2
+//				                });
+//				               window.location.href="login.html";
+//							}
+//						}
+//						
+//					});
+				}
+			})
+		})
+	</script>
+
+</html>

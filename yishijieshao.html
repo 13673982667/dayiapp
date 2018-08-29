@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>个人资料</title>
+<!--		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />-->
+		
+		<link rel="stylesheet" type="text/css" href="css/loaders.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/loading.css" />
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" href="js/need/layer.css" />
+		<script src="js/layer.js"></script>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			*{
+				-webkit-user-select: none;
+			}
+		</style>
+	</head>
+	<body >
+		<div id="app">
+			<header class="top-header">
+				<a class="icona mui-action-back" >
+					<img src="image/back.png" style="position: absolute;left: 10px;top: 8px;" />
+				</a>
+				<h3 class="name">{{ysInfo.nickname || ysInfo.yname}}医师</h3>
+			</header>
+			<div class="mouyisi">
+				<img src="image/4.png" />
+			</div>
+			<ul class="mouyisijieshao">
+				<li>
+					<span class="yishi">医师介绍</span>
+				</li>
+				<li>
+					<span class="yu" style="border-bottom: 1px solid rgb(0, 122, 255);">预约时间</span>
+				</li>
+			</ul>
+			<div class="jieshao" v-show="false">
+				<p style="margin:0 60px;text-align: left;">{{ ysInfo.jineng }}</p>
+			</div>
+			<div class="shijian">
+				<p class="timee">{{ Time }}</p>
+				<div class="haha">
+					<div class="time22  " 
+						 v-for="(item,value,index) of timetypeInfo" 
+						:class="{
+							time1:isTimeType!=item.type,
+							time2:isTimeType==item.type,
+						}"
+						 :type="item.type" 
+						 @click="onSele(item.type)">
+						<p class="timm">{{item.info}}</p>  
+						<p class="people">{{item.count}}</p> 
+					</div>
+					<!--时间：<select name="" id="">
+						<option value=""
+							v-for="(item,value,index) of timetypeInfo" 
+							
+							>{{item.info}}</option>
+					</select>-->
+					<!--<div class="time22 time1">
+						<p class="timm ">上午10:30</p> 
+						<p class="people">3人已约</p>
+					</div>
+			
+			
+					<div class="time22 time1">
+						<p class="timm">下午2:00</p>
+						<p class="people">约满</p>
+					</div>
+					<div class="time22 time1" >
+						<p class="timm">下午4:00</p>
+						<p class="people">约满</p>
+					</div>-->
+				
+				</div>
+					<button class="btn" @click="btn">确&nbsp;&nbsp;定</button>
+				
+			</div>  
+		</div>
+	</body>
+	<script src="js/common/mui.js"></script>
+	<script src="js/common/castapp.js"></script>
+	<script src="js/common/vue.js"></script>
+	<script src="js/common/common.js"></script>  
+	<script src="js/app/yishijieshao.js"></script>  
+	
+	<script type="text/javascript">
+		mui.init() 
+		ca.init(); 
+		var yId,Time,update;
+		var dId = $_GET['dId'] 
+		yId = $_GET['yId'];
+		Time = $_GET['cn'];
+		update = $_GET['update'];
+
+		var vm = new Vue({
+			el:'#app',
+			data:{
+				ysInfo:'',
+				timetypeInfo:[],
+				isTimeType:1,
+				Time:Time, 
+				isUpdate:update
+			},
+			methods:{
+				onSele:function(e){
+					this.isTimeType = e;
+				},
+				btn:fns.setYsTime
+			},
+			mounted:function(){
+				if(update){
+					fns.getOneInfo()
+
+				}else if(yId){
+					fns.getYsInfo() 
+				}
+	       }, 
+	       updated:function(){
+//				console.log(JSON.stringify(this.$data.ysInfo));
+	       	
+	       }
+		}) 
+		$('.yishi').click(function() {
+			$('.jieshao').css("display", "block");
+			$('.shijian').css("display", "none");
+			$('.yishi').css("border-bottom", "1px solid #007AFF");
+			$('.yu').css("border-bottom", "none");
+		})
+		$('.yu').click(function() {
+			$('.jieshao').css("display", "none");
+			$('.shijian').css("display", "block");
+			$('.yishi').css("border-bottom", "none");
+			$('.yu').css("border-bottom", "1px solid #007AFF");
+		})
+	</script>
+
+</html>
